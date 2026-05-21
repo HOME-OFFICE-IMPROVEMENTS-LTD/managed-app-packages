@@ -1,0 +1,39 @@
+# -----------------------------------------------
+# Azure Marketplace Managed Application Packages
+# hoiltd — managed-app-packages
+# -----------------------------------------------
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# Editors
+.vs/
+.vscode/
+*.code-workspace
+
+# -------------------------------------------
+# Managed App — local test artifacts
+# -------------------------------------------
+# Parameters files contain SSH keys, passwords, and env-specific values
+# Never commit these — copy from .parameters.json.example and fill locally
+**/azuredeploy.parameters.json
+
+# Temporary/test zips
+**/*.zip.tmp
+**/test-*.zip
+
+# Bicep compiled output (source of truth is *.bicep)
+# Exception: mainTemplate.json and azuredeploy.json ARE committed (required artifacts)
+# So we do NOT gitignore *.json broadly
+
+# Python / tooling
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+npm-debug.log

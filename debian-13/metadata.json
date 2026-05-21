@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Deploy a Debian 13 (Bookworm) VM with Trusted Launch",
+  "description": "Deploys a Debian 13 Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard public IP, SSH key or password authentication, and configurable VM size. Uses the official Debian publisher image from Azure Marketplace.",
+  "summary": "Debian 13 (Bookworm) Gen2 VM with Trusted Launch, Standard public IP, and SSH key auth.",
+  "githubUsername": "hoiltd",
+  "dateUpdated": "2026-05-21",
+  "tags": {
+    "os": "Linux, Debian",
+    "resource": "VM",
+    "level": "Beginner",
+    "scenario": "Azure Virtual Machine"
+  }
+}

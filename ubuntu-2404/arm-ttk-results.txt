@@ -1,0 +1,120 @@
+
+[35mValidating ubuntu-2404\createUiDefinition.json[0m
+[35m[0m[35m  JSONFiles Should Be Valid[0m
+[35m[0m[35m[0m[32m    [+] JSONFiles Should Be Valid (14 ms)[0m
+[35m  Allowed Values Should Actually Be Allowed[0m
+[35m[0m[32m    [+] Allowed Values Should Actually Be Allowed (85 ms)[0m
+[35m  Controls In Outputs Must Exist[0m
+[35m[0m[32m    [+] Controls In Outputs Must Exist (28 ms)[0m
+[35m  CreateUIDefinition Must Not Have Blanks[0m
+[35m[0m[32m    [+] CreateUIDefinition Must Not Have Blanks (11 ms)[0m
+[35m  CreateUIDefinition Should Have Schema[0m
+[35m[0m[32m    [+] CreateUIDefinition Should Have Schema (11 ms)[0m
+[35m  Credential Confirmation Should Not Be Hidden[0m
+[35m[0m[32m    [+] Credential Confirmation Should Not Be Hidden (64 ms)[0m
+[35m  Handler Must Be Correct[0m
+[35m[0m[32m    [+] Handler Must Be Correct (2 ms)[0m
+[35m  HideExisting Must Be Correctly Handled[0m
+[35m[0m[32m    [+] HideExisting Must Be Correctly Handled (79 ms)[0m
+[35m  Location Should Be In Outputs[0m
+[35m[0m[32m    [+] Location Should Be In Outputs (4 ms)[0m
+[35m  Outputs Must Be Present In Template Parameters[0m
+[35m[0m[32m    [+] Outputs Must Be Present In Template Parameters (12 ms)[0m
+[35m  Parameters Without Default Must Exist In CreateUIDefinition[0m
+[35m[0m[32m    [+] Parameters Without Default Must Exist In CreateUIDefinition (3 ms)[0m
+[35m  Password Textboxes Must Be Used For Password Parameters[0m
+[35m[0m[32m    [+] Password Textboxes Must Be Used For Password Parameters (29 ms)[0m
+[35m  PasswordBoxes Must Have Min Length[0m
+[35m[0m[32m    [+] PasswordBoxes Must Have Min Length (28 ms)[0m
+[35m  Textboxes Are Well Formed[0m
+[35m[0m[32m    [+] Textboxes Are Well Formed (35 ms)[0m
+[35m  Tooltips Should Be Present[0m
+[35m[0m[32m    [+] Tooltips Should Be Present (31 ms)[0m
+[35m  Usernames Should Not Have A Default[0m
+[35m[0m[32m    [+] Usernames Should Not Have A Default (26 ms)[0m
+[35m  Validations Must Have Message[0m
+[35m[0m[32m    [+] Validations Must Have Message (29 ms)[0m
+[35m  VMSizes Must Match Template[0m
+[35m[0m[32m    [+] VMSizes Must Match Template (38 ms)[0m
+[35mValidating ubuntu-2404\mainTemplate.json[0m
+[35m[0m[35m  adminPassword Should Not Be A Literal[0m
+[35m[0m[35m[0m[32m    [+] adminPassword Should Not Be A Literal (78 ms)[0m
+[35m  adminUsername Should Not Be A Literal[0m
+[35m[0m[32m    [+] adminUsername Should Not Be A Literal (64 ms)[0m
+[35m  apiVersions Should Be Recent In Reference Functions[0m
+[35m[0m[32m    [+] apiVersions Should Be Recent In Reference Functions (10 ms)[0m
+[35m  apiVersions Should Be Recent[0m
+[35m[0m[1;33m    [?] apiVersions Should Be Recent (104 ms)[0m
+[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33mThe [0m[35m[0m[1;33m[0m[1;33mapiVersion [0m[35m[0m[1;33m[0m[1;33m2025-07-01 [0m[35m[0m[1;33m[0m[1;33mwas [0m[35m[0m[1;33m[0m[1;33mnot [0m[35m[0m[1;33m[0m[1;33mfound [0m[35m[0m[1;33m[0m[1;33mfor [0m[35m[0m[1;33m[0m[1;33mthe [0m[35m[0m[1;33m[0m[1;33mresource [0m[35m[0m[1;33m[0m[1;33mtype: [0m
+[35m[0m[1;33m[0m[1;33mMicrosoft.Network/networkSecurityGroups[0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mThe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mapiVersion [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m2025-07-01 [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mwas [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mnot [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mfound [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mfor [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mthe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mresource [0m[35m[0m[1;33m[0m[1;33m[0m[1;33mtype: [0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33mMicrosoft.Network/virtualNetworks[0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mThe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mapiVersion [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m2025-07-01 [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mwas [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mnot [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfound [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfor [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mthe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mresource [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mtype: [0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mMicrosoft.Network/publicIPAddresses[0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mThe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mapiVersion [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m2025-07-01 [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mwas [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mnot [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfound [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfor [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mthe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mresource [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mtype: [0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mMicrosoft.Network/networkInterfaces[0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mThe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mapiVersion [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m2025-11-01 [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mwas [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mnot [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfound [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfor [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mthe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mresource [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mtype: [0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mMicrosoft.Compute/virtualMachines[0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mThe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mapiVersion [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m2025-11-01 [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mwas [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mnot [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfound [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mfor [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mthe [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mresource [0m[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mtype: [0m
+[35m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33m[0m[1;33mMicrosoft.Compute/virtualMachines/extensions[0m
+
+[35m  artifacts parameter[0m
+[35m[0m[32m    [+] artifacts parameter (15 ms)[0m
+[35m  CommandToExecute Must Use ProtectedSettings For Secrets[0m
+[35m[0m[32m    [+] CommandToExecute Must Use ProtectedSettings For Secrets (45 ms)[0m
+[35m  DependsOn Best Practices[0m
+[35m[0m[32m    [+] DependsOn Best Practices (25 ms)[0m
+[35m  Deployment Resources Must Not Be Debug[0m
+[35m[0m[32m    [+] Deployment Resources Must Not Be Debug (23 ms)[0m
+[35m  DeploymentTemplate Must Not Contain Hardcoded Uri[0m
+[35m[0m[32m    [+] DeploymentTemplate Must Not Contain Hardcoded Uri (24 ms)[0m
+[35m  DeploymentTemplate Schema Is Correct[0m
+[35m[0m[32m    [+] DeploymentTemplate Schema Is Correct (2 ms)[0m
+[35m  Dynamic Variable References Should Not Use Concat[0m
+[35m[0m[32m    [+] Dynamic Variable References Should Not Use Concat (2 ms)[0m
+[35m  IDs Should Be Derived From ResourceIDs[0m
+[35m[0m[32m    [+] IDs Should Be Derived From ResourceIDs (4 ms)[0m
+[35m  Location Should Not Be Hardcoded[0m
+[35m[0m[32m    [+] Location Should Not Be Hardcoded (110 ms)[0m
+[35m  ManagedIdentityExtension must not be used[0m
+[35m[0m[32m    [+] ManagedIdentityExtension must not be used (2 ms)[0m
+[35m  Min And Max Value Are Numbers[0m
+[35m[0m[32m    [+] Min And Max Value Are Numbers (5 ms)[0m
+[35m  Outputs Must Not Contain Secrets[0m
+[35m[0m[32m    [+] Outputs Must Not Contain Secrets (8 ms)[0m
+[35m  Parameter Types Should Be Consistent[0m
+[35m[0m[32m    [+] Parameter Types Should Be Consistent (53 ms)[0m
+[35m  Parameters Must Be Referenced[0m
+[35m[0m[32m    [+] Parameters Must Be Referenced (21 ms)[0m
+[35m  Password params must be secure[0m
+[35m[0m[32m    [+] Password params must be secure (3 ms)[0m
+[35m  providers apiVersions Is Not Permitted[0m
+[35m[0m[32m    [+] providers apiVersions Is Not Permitted (1 ms)[0m
+[35m  ResourceIds should not contain[0m
+[35m[0m[32m    [+] ResourceIds should not contain (4 ms)[0m
+[35m  Resources Should Have Location[0m
+[35m[0m[32m    [+] Resources Should Have Location (3 ms)[0m
+[35m  Resources Should Not Be Ambiguous[0m
+[35m[0m[32m    [+] Resources Should Not Be Ambiguous (5 ms)[0m
+[35m  Secure Params In Nested Deployments[0m
+[35m[0m[32m    [+] Secure Params In Nested Deployments (28 ms)[0m
+[35m  Secure String Parameters Cannot Have Default[0m
+[35m[0m[32m    [+] Secure String Parameters Cannot Have Default (2 ms)[0m
+[35m  Template Should Not Contain Blanks[0m
+[35m[0m[32m    [+] Template Should Not Contain Blanks (6 ms)[0m
+[35m  URIs Should Be Properly Constructed[0m
+[35m[0m[32m    [+] URIs Should Be Properly Constructed (64 ms)[0m
+[35m  Variables Must Be Referenced[0m
+[35m[0m[32m    [+] Variables Must Be Referenced (14 ms)[0m
+[35m  Virtual Machines Should Not Be Preview[0m
+[35m[0m[32m    [+] Virtual Machines Should Not Be Preview (46 ms)[0m
+[35m  VM Images Should Use Latest Version[0m
+[35m[0m[32m    [+] VM Images Should Use Latest Version (1 ms)[0m
+[35m  VM Size Should Be A Parameter[0m
+[35m[0m[32m    [+] VM Size Should Be A Parameter (41 ms)[0m
+[35m[0m[32m[0mFail  : 0[0m
+[35m[0m[32m[0mPass  : 49[0m
+[35m[0m[32m[0mTotal : 49[0m
+[35m[0m[32m[0m
+
+

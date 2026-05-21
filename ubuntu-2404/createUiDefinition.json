@@ -1,0 +1,196 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+  "handler": "Microsoft.Azure.CreateUIDef",
+  "version": "0.1.2-preview",
+  "metadata": {
+    "description": "Ubuntu 24.04 LTS Managed Application UI",
+    "host": {
+      "name": "Microsoft.Solutions/managedApplicationCreateUiDefinition"
+    }
+  },
+  "parameters": {
+    "basics": [
+      {
+        "name": "vmName",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Virtual Machine Name",
+        "defaultValue": "ubuntuVM",
+        "toolTip": "The name of the Virtual Machine.",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z0-9A-Z-]{3,24}$",
+          "validationMessage": "VM name must be 3-24 characters and contain only letters, numbers, and hyphens."
+        }
+      },
+      {
+        "name": "adminUsername",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Admin Username",
+        "defaultValue": "azureuser",
+        "toolTip": "Admin username for the Virtual Machine.",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z0-9]{1,32}$",
+          "validationMessage": "Username must be 1-32 lowercase alphanumeric characters."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "name": "vmSettings",
+        "label": "VM Settings",
+        "elements": [
+          {
+            "name": "ubuntuOSVersion",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Ubuntu OS Version",
+            "defaultValue": "Ubuntu 24.04 LTS",
+            "toolTip": "Select the Ubuntu version for deployment.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Ubuntu 20.04 LTS",
+                  "value": "Ubuntu-2004"
+                },
+                {
+                  "label": "Ubuntu 22.04 LTS",
+                  "value": "Ubuntu-2204"
+                },
+                {
+                  "label": "Ubuntu 24.04 LTS",
+                  "value": "Ubuntu-2404"
+                }
+              ],
+              "required": true
+            }
+          },
+          {
+            "name": "vmSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Virtual machine size",
+            "toolTip": "The size of the Virtual Machine.",
+            "recommendedSizes": [
+              "Standard_B2s",
+              "Standard_B2ms",
+              "Standard_D2s_v3",
+              "Standard_D2s_v5"
+            ],
+            "constraints": {
+              "allowedSizes": [
+                "Standard_B1s",
+                "Standard_B2s",
+                "Standard_B2ms",
+                "Standard_D2s_v3",
+                "Standard_D2s_v5",
+                "Standard_D4s_v5"
+              ],
+              "required": true
+            },
+            "osPlatform": "Linux",
+            "imageReference": {
+              "publisher": "Canonical",
+              "offer": "0001-com-ubuntu-server-noble",
+              "sku": "24_04-lts-gen2"
+            },
+            "count": 1
+          },
+          {
+            "name": "authenticationType",
+            "type": "Microsoft.Common.OptionsGroup",
+            "label": "Authentication Type",
+            "defaultValue": "password",
+            "toolTip": "Choose SSH public key or password for authentication.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Password",
+                  "value": "password"
+                },
+                {
+                  "label": "SSH Public Key",
+                  "value": "sshPublicKey"
+                }
+              ],
+              "required": true
+            }
+          },
+          {
+            "name": "adminPasswordOrKey",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": "Password or SSH Key",
+            "toolTip": "Enter the password or SSH public key for the admin user.",
+            "constraints": {
+              "required": true
+            },
+            "visible": "[equals(steps('vmSettings').authenticationType, 'password')]"
+          },
+          {
+            "name": "sshPublicKey",
+            "type": "Microsoft.Common.TextArea",
+            "label": "SSH Public Key",
+            "toolTip": "Paste your SSH public key (starts with 'ssh-rsa' or 'ssh-ed25519').",
+            "constraints": {
+              "required": true
+            },
+            "visible": "[equals(steps('vmSettings').authenticationType, 'sshPublicKey')]"
+          }
+        ]
+      },
+      {
+        "name": "networkSettings",
+        "label": "Network Settings",
+        "elements": [
+          {
+            "name": "virtualNetworkName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Virtual Network Name",
+            "defaultValue": "vNet",
+            "toolTip": "Name of the virtual network.",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-zA-Z0-9-]{1,64}$",
+              "validationMessage": "Must be 1-64 characters with letters, numbers, and hyphens."
+            }
+          },
+          {
+            "name": "subnetName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Subnet Name",
+            "defaultValue": "Subnet",
+            "toolTip": "Name of the subnet.",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-zA-Z0-9-]{1,64}$",
+              "validationMessage": "Must be 1-64 characters with letters, numbers, and hyphens."
+            }
+          },
+          {
+            "name": "networkSecurityGroupName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Network Security Group Name",
+            "defaultValue": "SecGroupNet",
+            "toolTip": "Name of the network security group.",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-zA-Z0-9-]{1,64}$",
+              "validationMessage": "Must be 1-64 characters with letters, numbers, and hyphens."
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "vmName": "[basics('vmName')]",
+      "adminUsername": "[basics('adminUsername')]",
+      "ubuntuOSVersion": "[steps('vmSettings').ubuntuOSVersion]",
+      "vmSize": "[steps('vmSettings').vmSize]",
+      "authenticationType": "[steps('vmSettings').authenticationType]",
+      "adminPasswordOrKey": "[if(equals(steps('vmSettings').authenticationType, 'password'), steps('vmSettings').adminPasswordOrKey, steps('vmSettings').sshPublicKey)]",
+      "virtualNetworkName": "[steps('networkSettings').virtualNetworkName]",
+      "subnetName": "[steps('networkSettings').subnetName]",
+      "networkSecurityGroupName": "[steps('networkSettings').networkSecurityGroupName]",
+      "location": "[location()]",
+      "securityType": "Standard"
+    }
+  }
+}

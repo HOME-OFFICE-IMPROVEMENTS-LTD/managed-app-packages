@@ -1,0 +1,242 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+  "handler": "Microsoft.Azure.CreateUIDef",
+  "version": "0.1.2-preview",
+  "parameters": {
+    "resourceTypes": [
+      "Microsoft.DBforPostgreSQL/flexibleServers"
+    ],
+    "basics": [
+      {
+        "name": "serverName",
+        "type": "Microsoft.Common.TextBox",
+        "label": "PostgreSQL Server Name",
+        "placeholder": "e.g. contoso-pg-prod",
+        "toolTip": "Globally unique name for the PostgreSQL Flexible Server (3-63 characters, lowercase letters, numbers and hyphens).",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z][a-z0-9-]{1,61}[a-z0-9]$",
+          "validationMessage": "Must be 3-63 characters, start with a letter, and contain only lowercase letters, numbers and hyphens."
+        }
+      },
+      {
+        "name": "dnsZoneName",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Private DNS Zone Name",
+        "placeholder": "e.g. contoso-pg-zone",
+        "toolTip": "Name for the private DNS zone. The full FQDN will be <name>.postgres.database.azure.com.",
+        "defaultValue": "",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z][a-z0-9-]{1,61}[a-z0-9]$",
+          "validationMessage": "Must be 3-63 characters, start with a letter, and contain only lowercase letters, numbers and hyphens."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "name": "credentials",
+        "label": "Administrator Credentials",
+        "subLabel": {
+          "preValidation": "Set the database administrator credentials",
+          "postValidation": "Done"
+        },
+        "elements": [
+          {
+            "name": "administratorLogin",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Admin Username",
+            "toolTip": "Administrator login name for the PostgreSQL server. Cannot be 'azure_superuser', 'admin', 'administrator', 'root', 'guest' or 'public'.",
+            "constraints": {
+              "required": true,
+              "regex": "^(?!azure_superuser|admin|administrator|root|guest|public)[a-zA-Z][a-zA-Z0-9_]{0,62}$",
+              "validationMessage": "Must start with a letter, contain only letters, numbers and underscores, and cannot be a reserved name."
+            }
+          },
+          {
+            "name": "administratorLoginPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Admin Password",
+              "confirmPassword": "Confirm Password"
+            },
+            "toolTip": "Must be 12-128 characters and contain characters from three of: uppercase, lowercase, numbers, non-alphanumeric.",
+            "constraints": {
+              "required": true,
+              "minLength": 12,
+              "regex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]|.*[!@#$%^&*()_+\\-=\\[\\]{}|;:,.<>?]).{12,128}$",
+              "validationMessage": "Must be 12-128 characters and include uppercase, lowercase, and a number or special character."
+            },
+            "options": {
+              "hideConfirmation": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "serverSettings",
+        "label": "Server Settings",
+        "subLabel": {
+          "preValidation": "Configure the PostgreSQL server",
+          "postValidation": "Done"
+        },
+        "elements": [
+          {
+            "name": "skuTier",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Pricing Tier",
+            "defaultValue": "General Purpose",
+            "toolTip": "Burstable is for dev/test. General Purpose and Memory Optimized are for production workloads.",
+            "constraints": {
+              "required": true,
+              "allowedValues": [
+                { "label": "Burstable (Dev/Test)", "value": "Burstable" },
+                { "label": "General Purpose (Production)", "value": "GeneralPurpose" },
+                { "label": "Memory Optimized (High Performance)", "value": "MemoryOptimized" }
+              ]
+            }
+          },
+          {
+            "name": "skuName",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Compute Size",
+            "defaultValue": "Standard_D2ds_v4 (2 vCores, 8 GiB)",
+            "toolTip": "Select the compute size for your PostgreSQL server.",
+            "constraints": {
+              "required": true,
+              "allowedValues": [
+                { "label": "Standard_B1ms (1 vCore, 2 GiB) - Burstable", "value": "Standard_B1ms" },
+                { "label": "Standard_B2s (2 vCores, 4 GiB) - Burstable", "value": "Standard_B2s" },
+                { "label": "Standard_D2ds_v4 (2 vCores, 8 GiB) - General Purpose", "value": "Standard_D2ds_v4" },
+                { "label": "Standard_D4ds_v4 (4 vCores, 16 GiB) - General Purpose", "value": "Standard_D4ds_v4" },
+                { "label": "Standard_D8ds_v4 (8 vCores, 32 GiB) - General Purpose", "value": "Standard_D8ds_v4" },
+                { "label": "Standard_E2ds_v4 (2 vCores, 16 GiB) - Memory Optimized", "value": "Standard_E2ds_v4" },
+                { "label": "Standard_E4ds_v4 (4 vCores, 32 GiB) - Memory Optimized", "value": "Standard_E4ds_v4" }
+              ]
+            }
+          },
+          {
+            "name": "postgresqlVersion",
+            "type": "Microsoft.Common.DropDown",
+            "label": "PostgreSQL Version",
+            "defaultValue": "16",
+            "toolTip": "Select the PostgreSQL major version. Version 16 is recommended.",
+            "constraints": {
+              "required": true,
+              "allowedValues": [
+                { "label": "PostgreSQL 16 (Recommended)", "value": "16" },
+                { "label": "PostgreSQL 15", "value": "15" },
+                { "label": "PostgreSQL 14", "value": "14" },
+                { "label": "PostgreSQL 13", "value": "13" }
+              ]
+            }
+          },
+          {
+            "name": "storageSizeGB",
+            "type": "Microsoft.Common.Slider",
+            "label": "Storage Size (GB)",
+            "toolTip": "Storage size in GB. Can be scaled up but not down after deployment.",
+            "min": 32,
+            "max": 16384,
+            "defaultValue": 32,
+            "showStepMarkers": false,
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "backupRetentionDays",
+            "type": "Microsoft.Common.Slider",
+            "label": "Backup Retention (Days)",
+            "toolTip": "Number of days to retain backups (1-35 days).",
+            "min": 1,
+            "max": 35,
+            "defaultValue": 7,
+            "showStepMarkers": false,
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "geoRedundantBackup",
+            "type": "Microsoft.Common.OptionsGroup",
+            "label": "Geo-Redundant Backup",
+            "defaultValue": "Disabled",
+            "toolTip": "Enable to replicate backups to a paired region for disaster recovery.",
+            "constraints": {
+              "required": true,
+              "allowedValues": [
+                { "label": "Disabled", "value": "Disabled" },
+                { "label": "Enabled", "value": "Enabled" }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "networking",
+        "label": "Networking",
+        "subLabel": {
+          "preValidation": "Configure virtual network integration",
+          "postValidation": "Done"
+        },
+        "elements": [
+          {
+            "name": "virtualNetwork",
+            "type": "Microsoft.Network.VirtualNetworkCombo",
+            "label": {
+              "virtualNetwork": "Virtual Network",
+              "subnets": "Subnets"
+            },
+            "toolTip": {
+              "virtualNetwork": "The virtual network for the PostgreSQL server. A dedicated subnet with delegation to Microsoft.DBforPostgreSQL/flexibleServers is required.",
+              "subnets": "The subnet must be dedicated to PostgreSQL Flexible Server (no other resources)."
+            },
+            "defaultValue": {
+              "name": "azure_postgresql_vnet",
+              "addressPrefixSize": "/24"
+            },
+            "constraints": {
+              "minAddressPrefixSize": "/28"
+            },
+            "options": {
+              "hideExisting": true
+            },
+            "subnets": {
+              "postgresqlSubnet": {
+                "label": "PostgreSQL Subnet",
+                "defaultValue": {
+                  "name": "azure_postgresql_subnet",
+                  "addressPrefixSize": "/28"
+                },
+                "constraints": {
+                  "minAddressPrefixSize": "/28",
+                  "minAddressCount": 4,
+                  "requireContiguousAddresses": false
+                }
+              }
+            },
+            "visible": true
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "location": "[location()]",
+      "serverName": "[basics('serverName')]",
+      "dnsZoneName": "[basics('dnsZoneName')]",
+      "administratorLogin": "[steps('credentials').administratorLogin]",
+      "administratorLoginPassword": "[steps('credentials').administratorLoginPassword]",
+      "skuTier": "[steps('serverSettings').skuTier]",
+      "skuName": "[steps('serverSettings').skuName]",
+      "postgresqlVersion": "[steps('serverSettings').postgresqlVersion]",
+      "storageSizeGB": "[int(steps('serverSettings').storageSizeGB)]",
+      "backupRetentionDays": "[int(steps('serverSettings').backupRetentionDays)]",
+      "geoRedundantBackup": "[steps('serverSettings').geoRedundantBackup]",
+      "virtualNetworkName": "[steps('networking').virtualNetwork.name]",
+      "vnetAddressPrefix": "[steps('networking').virtualNetwork.addressPrefix]",
+      "subnetName": "[steps('networking').virtualNetwork.subnets.postgresqlSubnet.name]",
+      "postgresqlSubnetPrefix": "[steps('networking').virtualNetwork.subnets.postgresqlSubnet.addressPrefix]"
+    }
+  }
+}

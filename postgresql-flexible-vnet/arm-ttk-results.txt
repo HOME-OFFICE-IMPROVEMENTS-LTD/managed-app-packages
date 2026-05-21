@@ -1,0 +1,151 @@
+
+[35mValidating postgresql-flexible-vnet\createUiDefinition.json[0m
+[35m[0m[35m  JSONFiles Should Be Valid[0m
+[35m[0m[35m[0m[32m    [+] JSONFiles Should Be Valid (16 ms)[0m
+[35m  Allowed Values Should Actually Be Allowed[0m
+[35m[0m[32m    [+] Allowed Values Should Actually Be Allowed (151 ms)[0m
+[35m  Controls In Outputs Must Exist[0m
+[35m[0m[32m    [+] Controls In Outputs Must Exist (11 ms)[0m
+[35m  CreateUIDefinition Must Not Have Blanks[0m
+[35m[0m[32m    [+] CreateUIDefinition Must Not Have Blanks (8 ms)[0m
+[35m  CreateUIDefinition Should Have Schema[0m
+[35m[0m[32m    [+] CreateUIDefinition Should Have Schema (12 ms)[0m
+[35m  Credential Confirmation Should Not Be Hidden[0m
+[35m[0m[32m    [+] Credential Confirmation Should Not Be Hidden (97 ms)[0m
+[35m  Handler Must Be Correct[0m
+[35m[0m[32m    [+] Handler Must Be Correct (2 ms)[0m
+[35m  HideExisting Must Be Correctly Handled[0m
+[35m[0m[32m    [+] HideExisting Must Be Correctly Handled (135 ms)[0m
+[35m  Location Should Be In Outputs[0m
+[35m[0m[1;31m    [-] Location Should Be In Outputs (4 ms)[0m
+[35m[0m[1;31m[0m[1;31m        CreateUIDefinition.outputs.location must be [location()][0m
+
+[35m  Outputs Must Be Present In Template Parameters[0m
+[35m[0m[32m    [+] Outputs Must Be Present In Template Parameters (17 ms)[0m
+[35m  Parameters Without Default Must Exist In CreateUIDefinition[0m
+[35m[0m[32m    [+] Parameters Without Default Must Exist In CreateUIDefinition (4 ms)[0m
+[35m  Password Textboxes Must Be Used For Password Parameters[0m
+[35m[0m[32m    [+] Password Textboxes Must Be Used For Password Parameters (50 ms)[0m
+[35m  PasswordBoxes Must Have Min Length[0m
+[35m[0m[32m    [+] PasswordBoxes Must Have Min Length (55 ms)[0m
+[35m  Textboxes Are Well Formed[0m
+[35m[0m[1;31m    [-] Textboxes Are Well Formed (58 ms)[0m
+[35m[0m[1;31m[0m[1;33m        TextBox 'databaseName' regex does not have a length constraint.[0m
+[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mTextbox [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mvnetAddressPrefix [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mis [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mmissing [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mconstraints.regex [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mregex [0m
+[35m[0m[1;31m[0m[1;33m[0m[1;31mproperty [0m[35m[0m[1;31m[0m[1;33m[0m[1;31min [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mconstraints.validations [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mLine: [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m293, [0m[35m[0m[1;31m[0m[1;33m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m14[0m
+[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mTextbox [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31msubnetName [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mis [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mmissing [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mconstraints.regex [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mregex [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mproperty [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31min [0m
+[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mconstraints.validations [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mLine: [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m304, [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m14[0m
+[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mTextbox [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31msubnetAddressPrefix [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mis [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mmissing [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mconstraints.regex [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mregex [0m
+[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mproperty [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31min [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mconstraints.validations [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mLine: [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m315, [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;33m[0m[1;31m[0m[1;31m[0m[1;31m14[0m
+
+[35m  Tooltips Should Be Present[0m
+[35m[0m[32m    [+] Tooltips Should Be Present (55 ms)[0m
+[35m  Usernames Should Not Have A Default[0m
+[35m[0m[32m    [+] Usernames Should Not Have A Default (47 ms)[0m
+[35m  Validations Must Have Message[0m
+[35m[0m[32m    [+] Validations Must Have Message (49 ms)[0m
+[35m  VMSizes Must Match Template[0m
+[35m[0m[32m    [+] VMSizes Must Match Template (49 ms)[0m
+[35mValidating postgresql-flexible-vnet\mainTemplate.json[0m
+[35m[0m[35m  adminPassword Should Not Be A Literal[0m
+[35m[0m[35m[0m[32m    [+] adminPassword Should Not Be A Literal (46 ms)[0m
+[35m  adminUsername Should Not Be A Literal[0m
+[35m[0m[32m    [+] adminUsername Should Not Be A Literal (31 ms)[0m
+[35m  apiVersions Should Be Recent In Reference Functions[0m
+[35m[0m[32m    [+] apiVersions Should Be Recent In Reference Functions (11 ms)[0m
+[35m  apiVersions Should Be Recent[0m
+[35m[0m[1;31m    [-] apiVersions Should Be Recent (105 ms)[0m
+[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31mApi [0m[35m[0m[1;31m[0m[1;31mversions [0m[35m[0m[1;31m[0m[1;31mmust [0m[35m[0m[1;31m[0m[1;31mbe [0m[35m[0m[1;31m[0m[1;31mthe [0m[35m[0m[1;31m[0m[1;31mlatest [0m[35m[0m[1;31m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;31munder [0m[35m[0m[1;31m[0m[1;31m2 [0m[35m[0m[1;31m[0m[1;31myears [0m[35m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m(730 [0m[35m[0m[1;31m[0m[1;31mdays) [0m[35m[0m[1;31m[0m[1;31m- [0m[35m[0m[1;31m[0m[1;31mAPI [0m
+[35m[0m[1;31m[0m[1;31mversion [0m[35m[0m[1;31m[0m[1;31m2024-01-01 [0m[35m[0m[1;31m[0m[1;31mof [0m[35m[0m[1;31m[0m[1;31mMicrosoft.Network/virtualNetworks [0m[35m[0m[1;31m[0m[1;31mis [0m[35m[0m[1;31m[0m[1;31m867 [0m[35m[0m[1;31m[0m[1;31mdays [0m[35m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31mLine: [0m
+[35m[0m[1;31m[0m[1;31m182, [0m[35m[0m[1;31m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;31m8[0m
+[35m[0m[1;31m[0m[1;31m[0m        Valid Api Versions:[0m
+[35m[0m[1;31m[0m[1;31m[0m        2025-05-01[0m
+[35m[0m[1;31m[0m[1;31m[0m        2025-05-01[0m
+[35m[0m[1;31m[0m[1;31m[0m        2025-03-01[0m
+[35m[0m[1;31m[0m[1;31m[0m        2025-01-01[0m
+[35m[0m[1;31m[0m[1;31m[0m        2024-10-01[0m
+[35m[0m[1;31m[0m[1;31m[0m        2024-07-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mApi [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mversions [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mmust [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mbe [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mthe [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mlatest [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;31m[0m[1;31munder [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m2 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31myears [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m(730 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mdays) [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m- [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mAPI [0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31mversion [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m2024-01-01 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mof [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mMicrosoft.Network/virtualNetworks/subnets [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mis [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m867 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mdays [0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mLine: [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m196, [0m[35m[0m[1;31m[0m[1;31m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m8[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        Valid Api Versions:[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2025-05-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2025-05-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2025-03-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2025-01-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2024-10-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2024-07-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mApi [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mversions [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mmust [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mbe [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mthe [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mlatest [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31munder [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m2 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31myears [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m(730 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mdays) [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m- [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mAPI [0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mversion [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m2020-06-01 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mof [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mMicrosoft.Network/privateDnsZones [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mis [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m2176 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mdays [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mLine: [0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m215, [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m8[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m        Valid Api Versions:[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2024-06-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2024-06-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mApi [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mversions [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mmust [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mbe [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mthe [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mlatest [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mor [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31munder [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m2 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31myears [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m(730 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mdays) [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m- [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mAPI [0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mversion [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m2020-06-01 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mof [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mMicrosoft.Network/privateDnsZones/virtualNetworkLinks [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mis [0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m2176 [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mdays [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mold [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mLine: [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m222, [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31mColumn: [0m[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m8[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m        Valid Api Versions:[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2024-06-01[0m
+[35m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m[1;31m[0m        2024-06-01[0m
+
+[35m  artifacts parameter[0m
+[35m[0m[32m    [+] artifacts parameter (5 ms)[0m
+[35m  CommandToExecute Must Use ProtectedSettings For Secrets[0m
+[35m[0m[32m    [+] CommandToExecute Must Use ProtectedSettings For Secrets (39 ms)[0m
+[35m  DependsOn Best Practices[0m
+[35m[0m[32m    [+] DependsOn Best Practices (14 ms)[0m
+[35m  Deployment Resources Must Not Be Debug[0m
+[35m[0m[32m    [+] Deployment Resources Must Not Be Debug (11 ms)[0m
+[35m  DeploymentTemplate Must Not Contain Hardcoded Uri[0m
+[35m[0m[32m    [+] DeploymentTemplate Must Not Contain Hardcoded Uri (8 ms)[0m
+[35m  DeploymentTemplate Schema Is Correct[0m
+[35m[0m[32m    [+] DeploymentTemplate Schema Is Correct (2 ms)[0m
+[35m  Dynamic Variable References Should Not Use Concat[0m
+[35m[0m[32m    [+] Dynamic Variable References Should Not Use Concat (5 ms)[0m
+[35m  IDs Should Be Derived From ResourceIDs[0m
+[35m[0m[32m    [+] IDs Should Be Derived From ResourceIDs (29 ms)[0m
+[35m  Location Should Not Be Hardcoded[0m
+[35m[0m[32m    [+] Location Should Not Be Hardcoded (101 ms)[0m
+[35m  ManagedIdentityExtension must not be used[0m
+[35m[0m[32m    [+] ManagedIdentityExtension must not be used (2 ms)[0m
+[35m  Min And Max Value Are Numbers[0m
+[35m[0m[32m    [+] Min And Max Value Are Numbers (4 ms)[0m
+[35m  Outputs Must Not Contain Secrets[0m
+[35m[0m[32m    [+] Outputs Must Not Contain Secrets (9 ms)[0m
+[35m  Parameter Types Should Be Consistent[0m
+[35m[0m[32m    [+] Parameter Types Should Be Consistent (49 ms)[0m
+[35m  Parameters Must Be Referenced[0m
+[35m[0m[1;31m    [-] Parameters Must Be Referenced (23 ms)[0m
+[35m[0m[1;31m[0m[1;31m        Unreferenced parameter: databaseName Line: 42, Column: 6[0m
+
+[35m  Password params must be secure[0m
+[35m[0m[32m    [+] Password params must be secure (5 ms)[0m
+[35m  providers apiVersions Is Not Permitted[0m
+[35m[0m[32m    [+] providers apiVersions Is Not Permitted (1 ms)[0m
+[35m  ResourceIds should not contain[0m
+[35m[0m[32m    [+] ResourceIds should not contain (3 ms)[0m
+[35m  Resources Should Have Location[0m
+[35m[0m[32m    [+] Resources Should Have Location (5 ms)[0m
+[35m  Resources Should Not Be Ambiguous[0m
+[35m[0m[32m    [+] Resources Should Not Be Ambiguous (7 ms)[0m
+[35m  Secure Params In Nested Deployments[0m
+[35m[0m[32m    [+] Secure Params In Nested Deployments (17 ms)[0m
+[35m  Secure String Parameters Cannot Have Default[0m
+[35m[0m[32m    [+] Secure String Parameters Cannot Have Default (2 ms)[0m
+[35m  Template Should Not Contain Blanks[0m
+[35m[0m[32m    [+] Template Should Not Contain Blanks (99 ms)[0m
+[35m  URIs Should Be Properly Constructed[0m
+[35m[0m[32m    [+] URIs Should Be Properly Constructed (44 ms)[0m
+[35m  Variables Must Be Referenced[0m
+[35m[0m[32m    [+] Variables Must Be Referenced (5 ms)[0m
+[35m  Virtual Machines Should Not Be Preview[0m
+[35m[0m[32m    [+] Virtual Machines Should Not Be Preview (41 ms)[0m
+[35m  VM Images Should Use Latest Version[0m
+[35m[0m[32m    [+] VM Images Should Use Latest Version (1 ms)[0m
+[35m  VM Size Should Be A Parameter[0m
+[35m[0m[32m    [+] VM Size Should Be A Parameter (38 ms)[0m
+[35m[0m[32m[0mFail  : 4[0m
+[35m[0m[32m[0mTotal : 49[0m
+[35m[0m[32m[0mPass  : 45[0m
+[35m[0m[32m[0m
+

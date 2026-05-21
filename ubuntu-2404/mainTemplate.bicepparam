@@ -1,0 +1,12 @@
+using './mainTemplate.bicep'
+
+param vmName = 'ubuntu2404vm'
+param adminUsername = 'azureuser'
+param authenticationType = 'password'
+param adminPasswordOrKey = 'Azadalawi1970@'
+param ubuntuOSVersion = 'Ubuntu-2204'
+param vmSize = 'Standard_B2s'
+param virtualNetworkName = 'vNet-ubuntu'
+param subnetName = 'Subnet-ubuntu'
+param networkSecurityGroupName = 'SecGroupNet-ubuntu'
+param securityType = 'Standard'

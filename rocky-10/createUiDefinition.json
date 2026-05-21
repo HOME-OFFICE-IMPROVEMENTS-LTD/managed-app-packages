@@ -1,0 +1,200 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+  "handler": "Microsoft.Azure.CreateUIDef",
+  "version": "0.1.2-preview",
+  "metadata": {
+    "description": "Rocky Linux 10 Managed Application UI",
+    "host": {
+      "name": "Microsoft.Solutions/managedApplicationCreateUiDefinition"
+    }
+  },
+  "parameters": {
+    "basics": [
+      {
+        "name": "vmName",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Virtual Machine Name",
+        "defaultValue": "rockyVM",
+        "toolTip": "The name of the Virtual Machine.",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z0-9A-Z-]{3,24}$",
+          "validationMessage": "VM name must be 3-24 characters and contain only letters, numbers, and hyphens."
+        }
+      },
+      {
+        "name": "adminUsername",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Admin Username",
+        "defaultValue": "azureuser",
+        "toolTip": "Admin username for the Virtual Machine.",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z0-9]{1,32}$",
+          "validationMessage": "Username must be 1-32 lowercase alphanumeric characters."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "name": "vmSettings",
+        "label": "VM Settings",
+        "elements": [
+          {
+            "name": "rockyOSVersion",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Rocky Linux OS Version",
+            "defaultValue": "Rocky 10 (LVM)",
+            "toolTip": "Select the Rocky Linux version for deployment.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Rocky 9 (Standard)",
+                  "value": "Rocky-9"
+                },
+                {
+                  "label": "Rocky 9 (LVM)",
+                  "value": "Rocky-9-LVM"
+                },
+                {
+                  "label": "Rocky 10 (Standard)",
+                  "value": "Rocky-10"
+                },
+                {
+                  "label": "Rocky 10 (LVM)",
+                  "value": "Rocky-10-LVM"
+                }
+              ],
+              "required": true
+            }
+          },
+          {
+            "name": "vmSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Virtual machine size",
+            "toolTip": "The size of the Virtual Machine.",
+            "recommendedSizes": [
+              "Standard_B2s",
+              "Standard_B2ms",
+              "Standard_D2s_v3",
+              "Standard_D2s_v5"
+            ],
+            "constraints": {
+              "allowedSizes": [
+                "Standard_B1s",
+                "Standard_B2s",
+                "Standard_B2ms",
+                "Standard_B4ms",
+                "Standard_D1_v2",
+                "Standard_D2_v2",
+                "Standard_D3_v2",
+                "Standard_D4_v2",
+                "Standard_D2s_v3",
+                "Standard_D4s_v3",
+                "Standard_D8s_v3",
+                "Standard_D2s_v5",
+                "Standard_D4s_v5",
+                "Standard_D8s_v5"
+              ],
+              "required": true
+            },
+            "options": {
+              "hideExisting": false
+            },
+            "osPlatform": "Linux",
+            "scope": "[steps('vmSettings').vmSize_scope]"
+          },
+          {
+            "name": "authenticationType",
+            "type": "Microsoft.Common.OptionsGroup",
+            "label": "Authentication type",
+            "defaultValue": "password",
+            "toolTip": "Type of authentication to use on the Virtual Machine.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Password",
+                  "value": "password"
+                },
+                {
+                  "label": "SSH public key",
+                  "value": "sshPublicKey"
+                }
+              ],
+              "required": true
+            }
+          },
+          {
+            "name": "adminPasswordOrKey",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": "Password or SSH key",
+            "toolTip": "OS Admin password or SSH public key depending on chosen authentication type.",
+            "constraints": {
+              "required": true,
+              "validationMessage": "Password must be at least 12 characters long and contain uppercase, lowercase, number and special character."
+            },
+            "options": {
+              "hideConfirmation": false
+            },
+            "visible": true
+          }
+        ]
+      },
+      {
+        "name": "networkSettings",
+        "label": "Network Settings",
+        "elements": [
+          {
+            "name": "virtualNetworkName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Virtual Network Name",
+            "defaultValue": "vNet",
+            "toolTip": "Name of the Virtual Network",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z-]{1,64}$",
+              "validationMessage": "Name must be 1-64 characters containing only letters, numbers and hyphens."
+            }
+          },
+          {
+            "name": "subnetName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Subnet Name",
+            "defaultValue": "Subnet",
+            "toolTip": "Name of the Subnet",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z-]{1,64}$",
+              "validationMessage": "Name must be 1-64 characters containing only letters, numbers and hyphens."
+            }
+          },
+          {
+            "name": "networkSecurityGroupName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Network Security Group Name",
+            "defaultValue": "SecGroupNet",
+            "toolTip": "Name of the Network Security Group",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z-]{1,64}$",
+              "validationMessage": "Name must be 1-64 characters containing only letters, numbers and hyphens."
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "vmName": "[basics('vmName')]",
+      "adminUsername": "[basics('adminUsername')]",
+      "rockyOSVersion": "[steps('vmSettings').rockyOSVersion]",
+      "vmSize": "[steps('vmSettings').vmSize]",
+      "authenticationType": "[steps('vmSettings').authenticationType]",
+      "adminPasswordOrKey": "[steps('vmSettings').adminPasswordOrKey]",
+      "virtualNetworkName": "[steps('networkSettings').virtualNetworkName]",
+      "subnetName": "[steps('networkSettings').subnetName]",
+      "networkSecurityGroupName": "[steps('networkSettings').networkSecurityGroupName]",
+      "location": "[location()]",
+      "securityType": "Standard"
+    }
+  }
+}
