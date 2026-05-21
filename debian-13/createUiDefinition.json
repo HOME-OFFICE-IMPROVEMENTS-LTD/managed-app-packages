@@ -104,7 +104,7 @@
             "type": "Microsoft.Common.DropDown",
             "label": "Security Type",
             "defaultValue": "TrustedLaunch",
-            "toolTip": "Trusted Launch enables Secure Boot and vTPM for enhanced VM security.",
+            "toolTip": "Trusted Launch enables Secure Boot and vTPM for enhanced VM security. Recommended for all new deployments.",
             "constraints": {
               "allowedValues": [
                 {
@@ -119,6 +119,42 @@
               "required": true
             },
             "visible": true
+          },
+          {
+            "name": "securityInfoTrusted",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[equals(steps('vmSettings').securityType, 'TrustedLaunch')]",
+            "options": {
+              "icon": "Info",
+              "text": "Trusted Launch protects your VM with Secure Boot (prevents unauthorized bootloaders and OS) and vTPM (hardware-backed security chip). Recommended for all production workloads."
+            }
+          },
+          {
+            "name": "securityInfoStandard",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[equals(steps('vmSettings').securityType, 'Standard')]",
+            "options": {
+              "icon": "Warning",
+              "text": "Standard security does not include Secure Boot or vTPM. Only select this if your workload is not compatible with Trusted Launch."
+            }
+          }
+        ]
+      },
+      {
+        "name": "tags",
+        "label": "Tags",
+        "elements": [
+          {
+            "name": "tagsByResource",
+            "type": "Microsoft.Common.TagsByResource",
+            "toolTip": "Apply tags to each resource type individually. Tags help you organise and track costs across resources.",
+            "resources": [
+              "Microsoft.Compute/virtualMachines",
+              "Microsoft.Network/virtualNetworks",
+              "Microsoft.Network/networkInterfaces",
+              "Microsoft.Network/networkSecurityGroups",
+              "Microsoft.Network/publicIPAddresses"
+            ]
           }
         ]
       }
@@ -130,7 +166,8 @@
       "authenticationType": "[basics('vmCredentials').authenticationType]",
       "adminPasswordOrKey": "[if(equals(basics('vmCredentials').authenticationType, 'password'), basics('vmCredentials').password, basics('vmCredentials').sshPublicKey)]",
       "vmSize": "[steps('vmSettings').vmSize]",
-      "securityType": "[steps('vmSettings').securityType]"
+      "securityType": "[steps('vmSettings').securityType]",
+      "tagsByResource": "[steps('tags').tagsByResource]"
     }
   }
 }

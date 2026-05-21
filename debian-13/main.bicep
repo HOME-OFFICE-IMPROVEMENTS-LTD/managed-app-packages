@@ -37,6 +37,9 @@ param subnetName string = 'default'
 @description('Name of the network security group.')
 param networkSecurityGroupName string = '${vmName}-nsg'
 
+@description('Tags to apply to all resources.')
+param tagsByResource object = {}
+
 var imageReference = {
   publisher: 'Debian'
   offer: 'debian-13'
@@ -79,6 +82,7 @@ var maaEndpoint = substring('emptystring', 0, 0)
 resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-10-01' = {
   name: networkSecurityGroupName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/networkSecurityGroups'] ?? {}
   properties: {
     securityRules: [
       {
@@ -101,6 +105,7 @@ resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-10-0
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-10-01' = {
   name: virtualNetworkName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/virtualNetworks'] ?? {}
   properties: {
     addressSpace: {
       addressPrefixes: [
@@ -126,6 +131,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-10-01' = {
 resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2024-10-01' = {
   name: publicIPAddressName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/publicIPAddresses'] ?? {}
   sku: {
     name: 'Standard'
     tier: 'Regional'
@@ -143,6 +149,7 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2024-10-01' = {
 resource networkInterface 'Microsoft.Network/networkInterfaces@2024-10-01' = {
   name: networkInterfaceName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/networkInterfaces'] ?? {}
   properties: {
     ipConfigurations: [
       {
@@ -167,6 +174,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2024-10-01' = {
 resource vm 'Microsoft.Compute/virtualMachines@2024-11-01' = {
   name: vmName
   location: location
+  tags: tagsByResource[?'Microsoft.Compute/virtualMachines'] ?? {}
   properties: {
     hardwareProfile: {
       vmSize: vmSize

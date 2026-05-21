@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "13707947991871654020"
+      "templateHash": "7597413067035519487"
     }
   },
   "parameters": {
@@ -83,6 +83,13 @@
       "metadata": {
         "description": "Name of the network security group."
       }
+    },
+    "tagsByResource": {
+      "type": "object",
+      "defaultValue": {},
+      "metadata": {
+        "description": "Tags to apply to all resources."
+      }
     }
   },
   "variables": {
@@ -128,6 +135,7 @@
       "apiVersion": "2024-10-01",
       "name": "[parameters('networkSecurityGroupName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/networkSecurityGroups'), createObject())]",
       "properties": {
         "securityRules": [
           {
@@ -151,6 +159,7 @@
       "apiVersion": "2024-10-01",
       "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/virtualNetworks'), createObject())]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -180,6 +189,7 @@
       "apiVersion": "2024-10-01",
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/publicIPAddresses'), createObject())]",
       "sku": {
         "name": "Standard",
         "tier": "Regional"
@@ -198,6 +208,7 @@
       "apiVersion": "2024-10-01",
       "name": "[variables('networkInterfaceName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/networkInterfaces'), createObject())]",
       "properties": {
         "ipConfigurations": [
           {
@@ -228,6 +239,7 @@
       "apiVersion": "2024-11-01",
       "name": "[parameters('vmName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Compute/virtualMachines'), createObject())]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
