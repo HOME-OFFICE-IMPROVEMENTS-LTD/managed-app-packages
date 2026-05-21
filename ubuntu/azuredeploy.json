@@ -2,60 +2,70 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "metadata": {
-    "description": "Ubuntu 24.04 LTS Managed Application for Azure Marketplace",
     "_generator": {
       "name": "bicep",
-      "version": "0.41.2"
+      "version": "0.43.8.12551",
+      "templateHash": "18331613459278984130"
     }
   },
   "parameters": {
     "vmName": {
       "type": "string",
-      "defaultValue": "ubuntuVM",
       "metadata": {
-        "description": "The name of your Virtual Machine."
+        "description": "Name of the virtual machine."
       }
     },
     "adminUsername": {
       "type": "string",
       "metadata": {
-        "description": "Username for the Virtual Machine."
+        "description": "Username for the virtual machine."
       }
     },
     "authenticationType": {
       "type": "string",
-      "defaultValue": "password",
+      "defaultValue": "sshPublicKey",
       "allowedValues": [
         "sshPublicKey",
         "password"
       ],
       "metadata": {
-        "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
+        "description": "Type of authentication to use on the virtual machine. SSH key is recommended."
       }
     },
     "adminPasswordOrKey": {
       "type": "securestring",
       "metadata": {
-        "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+        "description": "SSH public key or password for the virtual machine. SSH key is recommended."
       }
     },
-    "dnsLabelPrefix": {
-      "type": "string",
-      "defaultValue": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id)))]",
-      "metadata": {
-        "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
-      }
-    },
-    "ubuntuOSVersion": {
+    "ubuntuVersion": {
       "type": "string",
       "defaultValue": "Ubuntu-2404",
       "allowedValues": [
-        "Ubuntu-2004",
         "Ubuntu-2204",
-        "Ubuntu-2404"
+        "Ubuntu-2404",
+        "Ubuntu-2604"
       ],
       "metadata": {
-        "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
+        "description": "Ubuntu LTS version to deploy."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2s_v3",
+      "metadata": {
+        "description": "Size of the virtual machine."
+      }
+    },
+    "securityType": {
+      "type": "string",
+      "defaultValue": "TrustedLaunch",
+      "allowedValues": [
+        "Standard",
+        "TrustedLaunch"
+      ],
+      "metadata": {
+        "description": "Security type of the virtual machine."
       }
     },
     "location": {
@@ -65,54 +75,37 @@
         "description": "Location for all resources."
       }
     },
-    "vmSize": {
-      "type": "string",
-      "defaultValue": "Standard_B2s",
-      "metadata": {
-        "description": "The size of the VM"
-      }
-    },
     "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "vNet",
+      "defaultValue": "[format('{0}-vnet', parameters('vmName'))]",
       "metadata": {
-        "description": "Name of the VNET"
+        "description": "Name of the virtual network."
       }
     },
     "subnetName": {
       "type": "string",
-      "defaultValue": "Subnet",
+      "defaultValue": "default",
       "metadata": {
-        "description": "Name of the subnet in the virtual network"
+        "description": "Name of the subnet."
       }
     },
     "networkSecurityGroupName": {
       "type": "string",
-      "defaultValue": "SecGroupNet",
+      "defaultValue": "[format('{0}-nsg', parameters('vmName'))]",
       "metadata": {
-        "description": "Name of the Network Security Group"
+        "description": "Name of the network security group."
       }
     },
-    "securityType": {
-      "type": "string",
-      "defaultValue": "Standard",
-      "allowedValues": [
-        "Standard",
-        "TrustedLaunch"
-      ],
+    "tagsByResource": {
+      "type": "object",
+      "defaultValue": {},
       "metadata": {
-        "description": "Security Type of the Virtual Machine."
+        "description": "Tags to apply to all resources."
       }
     }
   },
   "variables": {
-    "imageReference": {
-      "Ubuntu-2004": {
-        "publisher": "Canonical",
-        "offer": "0001-com-ubuntu-server-focal",
-        "sku": "20_04-lts-gen2",
-        "version": "latest"
-      },
+    "imageReferences": {
       "Ubuntu-2204": {
         "publisher": "Canonical",
         "offer": "0001-com-ubuntu-server-jammy",
@@ -121,16 +114,23 @@
       },
       "Ubuntu-2404": {
         "publisher": "Canonical",
-        "offer": "0001-com-ubuntu-server-noble",
-        "sku": "24_04-lts-gen2",
+        "offer": "ubuntu-24_04-lts",
+        "sku": "server",
+        "version": "latest"
+      },
+      "Ubuntu-2604": {
+        "publisher": "Canonical",
+        "offer": "ubuntu-26_04-lts",
+        "sku": "server",
         "version": "latest"
       }
     },
-    "publicIPAddressName": "[format('{0}PublicIP', parameters('vmName'))]",
-    "networkInterfaceName": "[format('{0}NetInt', parameters('vmName'))]",
-    "osDiskType": "Standard_LRS",
+    "publicIPAddressName": "[format('{0}-pip', parameters('vmName'))]",
+    "networkInterfaceName": "[format('{0}-nic', parameters('vmName'))]",
+    "osDiskType": "Premium_LRS",
     "subnetAddressPrefix": "10.1.0.0/24",
     "addressPrefix": "10.1.0.0/16",
+    "dnsLabelPrefix": "[format('{0}-{1}', toLower(parameters('vmName')), uniqueString(resourceGroup().id))]",
     "linuxConfiguration": {
       "disablePasswordAuthentication": true,
       "ssh": {
@@ -158,9 +158,10 @@
   "resources": [
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2025-07-01",
+      "apiVersion": "2024-10-01",
       "name": "[parameters('networkSecurityGroupName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/networkSecurityGroups'), createObject())]",
       "properties": {
         "securityRules": [
           {
@@ -181,9 +182,10 @@
     },
     {
       "type": "Microsoft.Network/virtualNetworks",
-      "apiVersion": "2025-07-01",
+      "apiVersion": "2024-10-01",
       "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/virtualNetworks'), createObject())]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -194,10 +196,10 @@
           {
             "name": "[parameters('subnetName')]",
             "properties": {
+              "addressPrefix": "[variables('subnetAddressPrefix')]",
               "networkSecurityGroup": {
                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
               },
-              "addressPrefix": "[variables('subnetAddressPrefix')]",
               "privateEndpointNetworkPolicies": "Enabled",
               "privateLinkServiceNetworkPolicies": "Enabled"
             }
@@ -210,33 +212,36 @@
     },
     {
       "type": "Microsoft.Network/publicIPAddresses",
-      "apiVersion": "2025-07-01",
+      "apiVersion": "2024-10-01",
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/publicIPAddresses'), createObject())]",
       "sku": {
-        "name": "Basic"
+        "name": "Standard",
+        "tier": "Regional"
       },
       "properties": {
-        "publicIPAllocationMethod": "Dynamic",
+        "publicIPAllocationMethod": "Static",
         "publicIPAddressVersion": "IPv4",
         "dnsSettings": {
-          "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+          "domainNameLabel": "[variables('dnsLabelPrefix')]"
         },
         "idleTimeoutInMinutes": 4
       }
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2025-07-01",
+      "apiVersion": "2024-10-01",
       "name": "[variables('networkInterfaceName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Network/networkInterfaces'), createObject())]",
       "properties": {
         "ipConfigurations": [
           {
             "name": "ipconfig1",
             "properties": {
               "subnet": {
-                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '2025-07-01').subnets[0].id]"
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '2024-10-01').subnets[0].id]"
               },
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
@@ -257,9 +262,10 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2025-11-01",
+      "apiVersion": "2024-11-01",
       "name": "[parameters('vmName')]",
       "location": "[parameters('location')]",
+      "tags": "[coalesce(tryGet(parameters('tagsByResource'), 'Microsoft.Compute/virtualMachines'), createObject())]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
@@ -271,7 +277,7 @@
               "storageAccountType": "[variables('osDiskType')]"
             }
           },
-          "imageReference": "[variables('imageReference')[parameters('ubuntuOSVersion')]]"
+          "imageReference": "[variables('imageReferences')[parameters('ubuntuVersion')]]"
         },
         "networkProfile": {
           "networkInterfaces": [
@@ -295,7 +301,7 @@
     {
       "condition": "[and(and(equals(parameters('securityType'), 'TrustedLaunch'), variables('securityProfileJson').uefiSettings.secureBootEnabled), variables('securityProfileJson').uefiSettings.vTpmEnabled)]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "apiVersion": "2025-11-01",
+      "apiVersion": "2024-11-01",
       "name": "[format('{0}/{1}', parameters('vmName'), variables('extensionName'))]",
       "location": "[parameters('location')]",
       "properties": {
@@ -325,11 +331,11 @@
     },
     "hostname": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName')), '2025-07-01').dnsSettings.fqdn]"
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName')), '2024-10-01').dnsSettings.fqdn]"
     },
     "sshCommand": {
       "type": "string",
-      "value": "[format('ssh {0}@{1}', parameters('adminUsername'), reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName')), '2025-07-01').dnsSettings.fqdn)]"
+      "value": "[format('ssh {0}@{1}', parameters('adminUsername'), reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName')), '2024-10-01').dnsSettings.fqdn)]"
     }
   }
 }

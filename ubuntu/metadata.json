@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Deploy an Ubuntu LTS VM (22.04 / 24.04 / 26.04) with Trusted Launch",
+  "description": "Deploys an Ubuntu LTS Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard public IP, SSH key or password authentication, and configurable VM size. Supports Ubuntu 22.04 LTS, 24.04 LTS, and 26.04 LTS.",
+  "summary": "Ubuntu LTS VM (choose 22.04, 24.04 or 26.04) with Trusted Launch, Standard IP, and SSH key auth.",
+  "githubUsername": "hoiltd",
+  "dateUpdated": "2026-05-21",
+  "tags": {
+    "os": "Linux, Ubuntu",
+    "resource": "VM",
+    "level": "Beginner",
+    "scenario": "Azure Virtual Machine"
+  }
+}
