@@ -2,66 +2,59 @@
   "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
   "handler": "Microsoft.Azure.CreateUIDef",
   "version": "0.1.2-preview",
-  "metadata": {
-    "description": "Create an AlmaLinux 10 virtual machine"
-  },
   "parameters": {
+    "resourceTypes": [
+      "Microsoft.Compute/virtualMachines"
+    ],
     "basics": [
       {
         "name": "vmName",
         "type": "Microsoft.Common.TextBox",
         "label": "Virtual Machine Name",
-        "toolTip": "The name of the virtual machine",
+        "toolTip": "Name for the virtual machine. Must be 3–15 alphanumeric characters or hyphens.",
+        "placeholder": "almalinux-vm",
         "constraints": {
           "required": true,
-          "regex": "^[a-z0-9A-Z-]{3,15}$",
-          "validationMessage": "VM name must be between 3 and 15 characters, containing alphanumeric and hyphen characters only"
+          "regex": "^[a-zA-Z0-9-]{3,15}$",
+          "validationMessage": "Must be 3–15 characters: letters, numbers, and hyphens only."
         },
         "visible": true
       },
       {
         "name": "adminUsername",
-        "type": "Microsoft.Common.TextBox",
+        "type": "Microsoft.Compute.UserNameTextBox",
         "label": "Admin Username",
-        "toolTip": "Administrator username for the virtual machine",
+        "toolTip": "Administrator username for the virtual machine.",
+        "osPlatform": "Linux",
         "constraints": {
-          "required": true,
-          "regex": "^[a-z0-9A-Z_]{1,30}$",
-          "validationMessage": "Username must be between 1 and 30 characters"
-        },
-        "visible": true
-      },
-      {
-        "name": "authenticationType",
-        "type": "Microsoft.Common.DropDown",
-        "label": "Authentication Type",
-        "defaultValue": "sshPublicKey",
-        "toolTip": "Authentication method for the virtual machine",
-        "constraints": {
-          "allowedValues": [
-            {
-              "label": "SSH Public Key",
-              "value": "sshPublicKey"
-            },
-            {
-              "label": "Password",
-              "value": "password"
-            }
-          ],
           "required": true
         },
         "visible": true
       },
       {
-        "name": "adminPasswordOrKey",
-        "type": "Microsoft.Common.PasswordBox",
-        "label": "SSH Key or Password",
-        "toolTip": "SSH public key (paste entire key starting with ssh-rsa) or password",
+        "name": "vmCredentials",
+        "type": "Microsoft.Compute.CredentialsCombo",
+        "label": {
+          "authenticationType": "Authentication Type",
+          "password": "Password",
+          "confirmPassword": "Confirm Password",
+          "sshPublicKey": "SSH Public Key"
+        },
+        "toolTip": {
+          "authenticationType": "SSH key is recommended for Linux VMs.",
+          "password": "Password must be at least 12 characters.",
+          "sshPublicKey": "Paste your SSH public key (starts with ssh-rsa or ssh-ed25519)."
+        },
         "constraints": {
           "required": true,
-          "regex": "^(?=.{12,})",
-          "validationMessage": "Minimum 12 characters required"
+          "customPasswordRegex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{12,128}$",
+          "customValidationMessage": "Password must be 12–128 characters and include uppercase, lowercase, digit, and special character."
         },
+        "options": {
+          "hideConfirmation": false,
+          "hidePassword": false
+        },
+        "osPlatform": "Linux",
         "visible": true
       }
     ],
@@ -74,12 +67,12 @@
             "name": "vmSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Virtual Machine Size",
-            "toolTip": "The size of the virtual machine",
+            "toolTip": "Select the size of the virtual machine.",
             "recommendedSizes": [
-              "Standard_B2s",
-              "Standard_B2ms",
               "Standard_D2s_v3",
-              "Standard_D2s_v5"
+              "Standard_D2s_v5",
+              "Standard_B2s",
+              "Standard_B2ms"
             ],
             "constraints": {
               "allowedSizes": [
@@ -88,10 +81,6 @@
                 "Standard_B2s",
                 "Standard_B2ms",
                 "Standard_B4ms",
-                "Standard_D1_v2",
-                "Standard_D2_v2",
-                "Standard_D3_v2",
-                "Standard_D4_v2",
                 "Standard_D2s_v3",
                 "Standard_D3s_v3",
                 "Standard_D4s_v3",
@@ -104,8 +93,8 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "almalinux",
-              "offer": "almalinux",
-              "sku": "10_0"
+              "offer": "almalinux-x86_64",
+              "sku": "10-gen2"
             },
             "count": 1,
             "visible": true
@@ -115,21 +104,57 @@
             "type": "Microsoft.Common.DropDown",
             "label": "Security Type",
             "defaultValue": "TrustedLaunch",
-            "toolTip": "The security type for the virtual machine",
+            "toolTip": "Trusted Launch enables Secure Boot and vTPM for enhanced VM security. Recommended for all new deployments.",
             "constraints": {
               "allowedValues": [
                 {
-                  "label": "Standard",
-                  "value": "Standard"
+                  "label": "Trusted Launch (Recommended)",
+                  "value": "TrustedLaunch"
                 },
                 {
-                  "label": "TrustedLaunch",
-                  "value": "TrustedLaunch"
+                  "label": "Standard",
+                  "value": "Standard"
                 }
               ],
               "required": true
             },
             "visible": true
+          },
+          {
+            "name": "securityInfoTrusted",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[equals(steps('vmSettings').securityType, 'TrustedLaunch')]",
+            "options": {
+              "icon": "Info",
+              "text": "Trusted Launch protects your VM with Secure Boot (prevents unauthorized bootloaders and OS) and vTPM (hardware-backed security chip). Recommended for all production workloads."
+            }
+          },
+          {
+            "name": "securityInfoStandard",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[equals(steps('vmSettings').securityType, 'Standard')]",
+            "options": {
+              "icon": "Warning",
+              "text": "Standard security does not include Secure Boot or vTPM. Only select this if your workload is not compatible with Trusted Launch."
+            }
+          }
+        ]
+      },
+      {
+        "name": "tags",
+        "label": "Tags",
+        "elements": [
+          {
+            "name": "tagsByResource",
+            "type": "Microsoft.Common.TagsByResource",
+            "toolTip": "Apply tags to each resource type individually. Tags help you organise and track costs across resources.",
+            "resources": [
+              "Microsoft.Compute/virtualMachines",
+              "Microsoft.Network/virtualNetworks",
+              "Microsoft.Network/networkInterfaces",
+              "Microsoft.Network/networkSecurityGroups",
+              "Microsoft.Network/publicIPAddresses"
+            ]
           }
         ]
       }
@@ -138,11 +163,11 @@
       "location": "[location()]",
       "vmName": "[basics('vmName')]",
       "adminUsername": "[basics('adminUsername')]",
-      "authenticationType": "[basics('authenticationType')]",
-      "adminPasswordOrKey": "[basics('adminPasswordOrKey')]",
+      "authenticationType": "[basics('vmCredentials').authenticationType]",
+      "adminPasswordOrKey": "[if(equals(basics('vmCredentials').authenticationType, 'password'), basics('vmCredentials').password, basics('vmCredentials').sshPublicKey)]",
       "vmSize": "[steps('vmSettings').vmSize]",
-      "almalinuxOSVersion": "AlmaLinux-10",
-      "securityType": "[steps('vmSettings').securityType]"
+      "securityType": "[steps('vmSettings').securityType]",
+      "tagsByResource": "[steps('tags').tagsByResource]"
     }
   }
 }
