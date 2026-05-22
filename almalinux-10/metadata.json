@@ -6,7 +6,7 @@
   "summary": "AlmaLinux 10 Gen2 VM with Trusted Launch, Standard IP, and SSH key auth.",
   "githubUsername": "hoiltd",
   "dateUpdated": "2026-05-22",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "tags": {
     "os": "Linux, AlmaLinux",
     "resource": "VM",
