@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Deploy a Red Hat Enterprise Linux 9 VM with Trusted Launch",
+  "description": "Deploys a RHEL 9 Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard static public IP, SSH key or password authentication, and configurable VM size. Uses Red Hat's PAYG image — no separate Red Hat subscription required.",
+  "summary": "RHEL 9 Gen2 VM with Trusted Launch, Standard IP, and SSH key auth.",
+  "githubUsername": "hoiltd",
+  "dateUpdated": "2026-05-22",
+  "version": "0.0.2",
+  "tags": {
+    "os": "Linux, Red Hat Enterprise Linux",
+    "resource": "VM",
+    "level": "Beginner",
+    "scenario": "Azure Virtual Machine"
+  }
+}
