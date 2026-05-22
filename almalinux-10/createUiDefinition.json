@@ -8,6 +8,15 @@
     ],
     "basics": [
       {
+        "name": "introInfo",
+        "type": "Microsoft.Common.InfoBox",
+        "visible": true,
+        "options": {
+          "icon": "Info",
+          "text": "This offer deploys an AlmaLinux 10 Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), a Standard static public IP, SSH key or password authentication, and full tagging support. AlmaLinux 10 is a community-owned, RHEL-compatible enterprise Linux distribution with long-term support."
+        }
+      },
+      {
         "name": "vmName",
         "type": "Microsoft.Common.TextBox",
         "label": "Virtual Machine Name",
