@@ -175,6 +175,11 @@ resource vm 'Microsoft.Compute/virtualMachines@2024-11-01' = {
   name: vmName
   location: location
   tags: tagsByResource[?'Microsoft.Compute/virtualMachines'] ?? {}
+  plan: {
+    name: '9-lvm'
+    product: 'rockylinux-x86_64'
+    publisher: 'resf'
+  }
   properties: {
     hardwareProfile: {
       vmSize: vmSize
