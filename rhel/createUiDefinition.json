@@ -13,7 +13,7 @@
         "visible": true,
         "options": {
           "icon": "Info",
-          "text": "This offer deploys a Red Hat Enterprise Linux 9 Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), a Standard static public IP, SSH key or password authentication, and full tagging support. RHEL 9 is a Red Hat published image — no separate Red Hat subscription is required for Azure PAYG deployments."
+          "text": "This offer deploys a Red Hat Enterprise Linux Gen2 virtual machine (RHEL 9 or RHEL 10) with Trusted Launch (Secure Boot + vTPM), a Standard static public IP, SSH key or password authentication, and full tagging support. Both are Red Hat published PAYG images — no separate Red Hat subscription required."
         }
       },
       {
@@ -72,6 +72,27 @@
         "name": "vmSettings",
         "label": "VM Settings",
         "elements": [
+          {
+            "name": "rhelVersion",
+            "type": "Microsoft.Common.DropDown",
+            "label": "RHEL Version",
+            "defaultValue": "RHEL 9 (Recommended)",
+            "toolTip": "Select the Red Hat Enterprise Linux version to deploy. RHEL 9 is the current LTS release. RHEL 10 is the latest release.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "RHEL 9 (Recommended)",
+                  "value": "RHEL-9"
+                },
+                {
+                  "label": "RHEL 10",
+                  "value": "RHEL-10"
+                }
+              ],
+              "required": true
+            },
+            "visible": true
+          },
           {
             "name": "vmSize",
             "type": "Microsoft.Compute.SizeSelector",
@@ -175,6 +196,7 @@
       "authenticationType": "[basics('vmCredentials').authenticationType]",
       "adminPasswordOrKey": "[if(equals(basics('vmCredentials').authenticationType, 'password'), basics('vmCredentials').password, basics('vmCredentials').sshPublicKey)]",
       "vmSize": "[steps('vmSettings').vmSize]",
+      "rhelVersion": "[steps('vmSettings').rhelVersion]",
       "securityType": "[steps('vmSettings').securityType]",
       "tagsByResource": "[steps('tags').tagsByResource]"
     }

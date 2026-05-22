@@ -37,14 +37,29 @@ param subnetName string = 'default'
 @description('Name of the network security group.')
 param networkSecurityGroupName string = '${vmName}-nsg'
 
+@description('RHEL version to deploy.')
+@allowed([
+  'RHEL-9'
+  'RHEL-10'
+])
+param rhelVersion string = 'RHEL-9'
+
 @description('Tags to apply to all resources.')
 param tagsByResource object = {}
 
-var imageReference = {
-  publisher: 'RedHat'
-  offer: 'RHEL'
-  sku: '9-lvm-gen2'
-  version: 'latest'
+var imageReferences = {
+  'RHEL-9': {
+    publisher: 'RedHat'
+    offer: 'RHEL'
+    sku: '9-lvm-gen2'
+    version: 'latest'
+  }
+  'RHEL-10': {
+    publisher: 'RedHat'
+    offer: 'RHEL'
+    sku: '10-lvm-gen2'
+    version: 'latest'
+  }
 }
 var publicIPAddressName = '${vmName}-pip'
 var networkInterfaceName = '${vmName}-nic'
@@ -186,7 +201,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2024-11-01' = {
           storageAccountType: osDiskType
         }
       }
-      imageReference: imageReference
+      imageReference: imageReferences[rhelVersion]
     }
     networkProfile: {
       networkInterfaces: [

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "3251135658761645133"
+      "templateHash": "15553427169168786241"
     }
   },
   "parameters": {
@@ -84,6 +84,17 @@
         "description": "Name of the network security group."
       }
     },
+    "rhelVersion": {
+      "type": "string",
+      "defaultValue": "RHEL-9",
+      "allowedValues": [
+        "RHEL-9",
+        "RHEL-10"
+      ],
+      "metadata": {
+        "description": "RHEL version to deploy."
+      }
+    },
     "tagsByResource": {
       "type": "object",
       "defaultValue": {},
@@ -93,11 +104,19 @@
     }
   },
   "variables": {
-    "imageReference": {
-      "publisher": "RedHat",
-      "offer": "RHEL",
-      "sku": "9-lvm-gen2",
-      "version": "latest"
+    "imageReferences": {
+      "RHEL-9": {
+        "publisher": "RedHat",
+        "offer": "RHEL",
+        "sku": "9-lvm-gen2",
+        "version": "latest"
+      },
+      "RHEL-10": {
+        "publisher": "RedHat",
+        "offer": "RHEL",
+        "sku": "10-lvm-gen2",
+        "version": "latest"
+      }
     },
     "publicIPAddressName": "[format('{0}-pip', parameters('vmName'))]",
     "networkInterfaceName": "[format('{0}-nic', parameters('vmName'))]",
@@ -251,7 +270,7 @@
               "storageAccountType": "[variables('osDiskType')]"
             }
           },
-          "imageReference": "[variables('imageReference')]"
+          "imageReference": "[variables('imageReferences')[parameters('rhelVersion')]]"
         },
         "networkProfile": {
           "networkInterfaces": [
