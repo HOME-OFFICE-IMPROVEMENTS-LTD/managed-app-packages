@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Deploy a SUSE Linux Enterprise Server 15 SP7 VM with Trusted Launch",
+  "description": "Deploys a SLES 15 SP7 Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard static public IP, SSH key or password authentication, and configurable VM size. Uses SUSE's PAYG image — no separate SUSE subscription required.",
+  "summary": "SLES 15 SP7 Gen2 VM with Trusted Launch, Standard IP, and SSH key auth.",
+  "githubUsername": "hoiltd",
+  "dateUpdated": "2026-05-22",
+  "version": "0.0.2",
+  "tags": {
+    "os": "Linux, SUSE Linux Enterprise Server",
+    "resource": "VM",
+    "level": "Beginner",
+    "scenario": "Azure Virtual Machine"
+  }
+}
