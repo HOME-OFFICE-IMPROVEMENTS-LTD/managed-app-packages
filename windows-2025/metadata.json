@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Deploy a Windows Server 2025 VM with Trusted Launch",
+  "description": "Deploys a Windows Server 2025 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard public IP, RDP access, and configurable VM size. Supports multiple Windows Server 2025 editions including Azure Edition with cloud-native features such as hotpatching.",
+  "summary": "Windows Server 2025 VM with Trusted Launch, Standard public IP, and RDP access.",
+  "githubUsername": "hoiltd",
+  "dateUpdated": "2026-05-23",
+  "tags": {
+    "os": "Windows",
+    "resource": "VM",
+    "level": "Beginner",
+    "scenario": "Azure Virtual Machine"
+  }
+}

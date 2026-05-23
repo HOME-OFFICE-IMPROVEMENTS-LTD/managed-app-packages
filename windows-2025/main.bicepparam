@@ -1,4 +1,4 @@
-using './mainTemplate.bicep'
+using './main.bicep'
 
 param adminUsername = 'msalsouri'
 param adminPassword = 'Azadalawi1970@'

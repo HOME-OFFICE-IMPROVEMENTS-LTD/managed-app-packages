@@ -3,113 +3,125 @@
     "handler": "Microsoft.Azure.CreateUIDef",
     "version": "0.1.2-preview",
     "parameters": {
+        "resourceTypes": [
+            "Microsoft.Compute/virtualMachines"
+        ],
         "basics": [
+            {
+                "name": "introInfo",
+                "type": "Microsoft.Common.InfoBox",
+                "visible": true,
+                "options": {
+                    "icon": "Info",
+                    "text": "Deploy a Windows Server 2025 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard public IP, RDP access, and configurable VM size. Choose from multiple Windows Server 2025 editions including Azure Edition with enhanced cloud-native features."
+                }
+            },
             {
                 "name": "vmName",
                 "type": "Microsoft.Common.TextBox",
-                "label": "Virtual Machine name",
-                "toolTip": "The name of the Virtual Machine.",
-                "defaultValue": "simple-vm",
+                "label": "Virtual Machine Name",
+                "toolTip": "Name for the virtual machine. Must be 3–15 alphanumeric characters or hyphens.",
+                "placeholder": "win2025-vm",
                 "constraints": {
                     "required": true,
-                    "regex": "^[a-z0-9A-Z-]{3,15}$",
-                    "validationMessage": "The VM Name must be between 3 and 15 characters long and contain letters, numbers and hyphens only."
-                }
+                    "regex": "^[a-zA-Z0-9-]{3,15}$",
+                    "validationMessage": "Must be 3–15 characters: letters, numbers, and hyphens only."
+                },
+                "visible": true
             },
             {
                 "name": "adminUsername",
                 "type": "Microsoft.Compute.UserNameTextBox",
-                "label": "Username",
-                "toolTip": "Admin username for the machine",
+                "label": "Admin Username",
+                "toolTip": "Administrator username for the virtual machine.",
                 "osPlatform": "Windows",
                 "constraints": {
                     "required": true
-                }
+                },
+                "visible": true
             },
             {
-                "name": "password",
-                "type": "Microsoft.Common.PasswordBox",
+                "name": "vmCredentials",
+                "type": "Microsoft.Compute.CredentialsCombo",
                 "label": {
                     "password": "Password",
-                    "confirmPassword": "Confirm password"
+                    "confirmPassword": "Confirm Password"
                 },
-                "toolTip": "Admin password for the virtual machine",
+                "toolTip": {
+                    "password": "Password must be 12–128 characters and include uppercase, lowercase, digit, and special character."
+                },
                 "constraints": {
                     "required": true,
-                    "regex": "^(?=.*[A-Z])(?=.*[.!@#$%^&*()-_=+])(?=.*[0-9])(?=.*[a-z]).{12,40}$",
-                    "validationMessage": "Password must be at least 12 characters long, and contain upper case, lower case, number and symbol"
+                    "customPasswordRegex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{12,128}$",
+                    "customValidationMessage": "Password must be 12–128 characters and include uppercase, lowercase, digit, and special character."
                 },
                 "options": {
                     "hideConfirmation": false
                 },
+                "osPlatform": "Windows",
                 "visible": true
             }
         ],
         "steps": [
             {
-                "name": "VirtualMachineConfig",
-                "label": "Virtual Machine Settings",
-                "subLabel": {
-                    "preValidation": "Configure the virtual machine's resources and settings",
-                    "postValidation": "Done"
-                },
-                "bladeTitle": "Virtual Machine Settings",
+                "name": "vmSettings",
+                "label": "VM Settings",
                 "elements": [
                     {
                         "name": "OSVersion",
                         "type": "Microsoft.Common.DropDown",
-                        "label": "Windows OS Version",
+                        "label": "Windows Server 2025 Edition",
                         "defaultValue": "2025-datacenter-azure-edition",
-                        "toolTip": "The OS Version for the VM Image",
+                        "toolTip": "Select the Windows Server 2025 edition. Azure Edition includes exclusive cloud-native features like hotpatching.",
                         "constraints": {
                             "allowedValues": [
                                 {
-                                    "value": "2025-datacenter",
-                                    "label": "2025-datacenter"
-                                },
-                                {
                                     "value": "2025-datacenter-azure-edition",
-                                    "label": "2025-datacenter-azure-edition"
+                                    "label": "Windows Server 2025 Datacenter Azure Edition (Recommended)"
                                 },
                                 {
                                     "value": "2025-datacenter-azure-edition-core",
-                                    "label": "2025-datacenter-azure-edition-core"
+                                    "label": "Windows Server 2025 Datacenter Azure Edition Core"
                                 },
                                 {
                                     "value": "2025-datacenter-azure-edition-core-smalldisk",
-                                    "label": "2025-datacenter-azure-edition-core-smalldisk"
+                                    "label": "Windows Server 2025 Datacenter Azure Edition Core (Small Disk)"
                                 },
                                 {
                                     "value": "2025-datacenter-azure-edition-smalldisk",
-                                    "label": "2025-datacenter-azure-edition-smalldisk"
+                                    "label": "Windows Server 2025 Datacenter Azure Edition (Small Disk)"
+                                },
+                                {
+                                    "value": "2025-datacenter",
+                                    "label": "Windows Server 2025 Datacenter"
                                 },
                                 {
                                     "value": "2025-datacenter-core",
-                                    "label": "2025-datacenter-core"
+                                    "label": "Windows Server 2025 Datacenter Core"
                                 },
                                 {
                                     "value": "2025-datacenter-core-g2",
-                                    "label": "2025-datacenter-core-g2"
+                                    "label": "Windows Server 2025 Datacenter Core Gen2"
                                 },
                                 {
                                     "value": "2025-datacenter-core-smalldisk",
-                                    "label": "2025-datacenter-core-smalldisk"
+                                    "label": "Windows Server 2025 Datacenter Core (Small Disk)"
                                 },
                                 {
                                     "value": "2025-datacenter-core-smalldisk-g2",
-                                    "label": "2025-datacenter-core-smalldisk-g2"
+                                    "label": "Windows Server 2025 Datacenter Core Gen2 (Small Disk)"
                                 },
                                 {
                                     "value": "2025-datacenter-g2",
-                                    "label": "2025-datacenter-g2"
+                                    "label": "Windows Server 2025 Datacenter Gen2"
                                 },
                                 {
                                     "value": "2025-datacenter-smalldisk",
-                                    "label": "2025-datacenter-smalldisk"
+                                    "label": "Windows Server 2025 Datacenter (Small Disk)"
                                 },
                                 {
                                     "value": "2025-datacenter-smalldisk-g2",
-                                    "label": "2025-datacenter-smalldisk-g2"
+                                    "label": "Windows Server 2025 Datacenter Gen2 (Small Disk)"
                                 }
                             ],
                             "required": true
@@ -119,38 +131,94 @@
                     {
                         "name": "vmSize",
                         "type": "Microsoft.Compute.SizeSelector",
-                        "label": "Virtual machine size",
-                        "toolTip": "The size of virtual machine to provision.",
+                        "label": "Virtual Machine Size",
+                        "toolTip": "Select the size of the virtual machine.",
                         "recommendedSizes": [
-                            "Standard_D2s_v3"
+                            "Standard_D2s_v3",
+                            "Standard_D2s_v5",
+                            "Standard_B2s",
+                            "Standard_B2ms"
                         ],
+                        "constraints": {
+                            "allowedSizes": [
+                                "Standard_B1ms",
+                                "Standard_B2s",
+                                "Standard_B2ms",
+                                "Standard_B4ms",
+                                "Standard_D2s_v3",
+                                "Standard_D3s_v3",
+                                "Standard_D4s_v3",
+                                "Standard_D2s_v5",
+                                "Standard_D3s_v5",
+                                "Standard_D4s_v5"
+                            ],
+                            "required": true
+                        },
                         "osPlatform": "Windows",
-                        "count": "1"
+                        "imageReference": {
+                            "publisher": "MicrosoftWindowsServer",
+                            "offer": "WindowsServer",
+                            "sku": "2025-datacenter-azure-edition"
+                        },
+                        "count": 1,
+                        "visible": true
                     },
                     {
-                        "name": "publicIpAddress",
-                        "type": "Microsoft.Network.PublicIpAddressCombo",
-                        "label": {
-                            "publicIpAddress": "Public IP Address for the VM",
-                            "domainNameLabel": "DNS Prefix for the public IP Address"
-                        },
-                        "toolTip": {
-                            "publicIpAddress": "Public IP Address for the VM",
-                            "domainNameLabel": "DNS Prefix for the public IP Address, must be globally unique"
-                        },
-                        "defaultValue": {
-                            "publicIpAddressName": "[concat(basics('vmName'), '-ip')]",
-                            "domainNameLabel": "[concat(basics('vmName'), '-', take(replace(guid(), '-', ''), 10))]"
-                        },
-                        "options": {
-                            "hideExisting": true,
-                            "hideNone": true
-                        },
+                        "name": "securityType",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Security Type",
+                        "defaultValue": "TrustedLaunch",
+                        "toolTip": "Trusted Launch enables Secure Boot and vTPM for enhanced VM security. Recommended for all new deployments.",
                         "constraints": {
-                            "required": {
-                                "domainNameLabel": true
-                            }
+                            "allowedValues": [
+                                {
+                                    "label": "Trusted Launch (Recommended)",
+                                    "value": "TrustedLaunch"
+                                },
+                                {
+                                    "label": "Standard",
+                                    "value": "Standard"
+                                }
+                            ],
+                            "required": true
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "securityInfoTrusted",
+                        "type": "Microsoft.Common.InfoBox",
+                        "visible": "[equals(steps('vmSettings').securityType, 'TrustedLaunch')]",
+                        "options": {
+                            "icon": "Info",
+                            "text": "Trusted Launch protects your VM with Secure Boot (prevents unauthorized bootloaders and OS) and vTPM (hardware-backed security chip). Recommended for all production workloads."
                         }
+                    },
+                    {
+                        "name": "securityInfoStandard",
+                        "type": "Microsoft.Common.InfoBox",
+                        "visible": "[equals(steps('vmSettings').securityType, 'Standard')]",
+                        "options": {
+                            "icon": "Warning",
+                            "text": "Standard security does not include Secure Boot or vTPM. Only select this if your workload is not compatible with Trusted Launch."
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "tags",
+                "label": "Tags",
+                "elements": [
+                    {
+                        "name": "tagsByResource",
+                        "type": "Microsoft.Common.TagsByResource",
+                        "toolTip": "Apply tags to each resource type individually. Tags help you organise and track costs across resources.",
+                        "resources": [
+                            "Microsoft.Compute/virtualMachines",
+                            "Microsoft.Network/virtualNetworks",
+                            "Microsoft.Network/networkInterfaces",
+                            "Microsoft.Network/networkSecurityGroups",
+                            "Microsoft.Network/publicIPAddresses"
+                        ]
                     }
                 ]
             }
@@ -159,13 +227,11 @@
             "location": "[location()]",
             "vmName": "[basics('vmName')]",
             "adminUsername": "[basics('adminUsername')]",
-            "adminPassword": "[basics('password')]",
-            "vmSize": "[steps('VirtualMachineConfig').vmSize]",
-            "OSVersion": "[steps('VirtualMachineConfig').OSVersion]",
-            "publicIpName": "[steps('VirtualMachineConfig').publicIpAddress.name]",
-            "dnsLabelPrefix": "[steps('VirtualMachineConfig').publicIpAddress.domainNameLabel]",
-            "publicIPAllocationMethod": "[steps('VirtualMachineConfig').publicIpAddress.publicIPAllocationMethod]",
-            "publicIpSku": "[steps('VirtualMachineConfig').publicIpAddress.sku]"
+            "adminPassword": "[basics('vmCredentials').password]",
+            "vmSize": "[steps('vmSettings').vmSize]",
+            "OSVersion": "[steps('vmSettings').OSVersion]",
+            "securityType": "[steps('vmSettings').securityType]",
+            "tagsByResource": "[steps('tags').tagsByResource]"
         }
     }
 }

@@ -7,18 +7,9 @@ param adminUsername string
 param adminPassword string
 
 @description('Unique DNS Name for the Public IP used to access the Virtual Machine.')
-param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().id,vmName)}')
+param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().id, vmName)}')
 
-@description('Name for the Public IP used to access the Virtual Machine.')
-param publicIpName string = 'myPublicIP'
-
-@description('Allocation method for the Public IP used to access the Virtual Machine.')
-param publicIPAllocationMethod string = 'Static'
-
-@description('SKU for the Public IP used to access the Virtual Machine.')
-param publicIpSku string = 'Standard'
-
-@description('The Windows version for the VM. This will pick a fully patched image of this given Windows version.')
+@description('The Windows Server 2025 SKU to deploy.')
 @allowed([
   '2025-datacenter'
   '2025-datacenter-azure-edition'
@@ -42,7 +33,7 @@ param vmSize string = 'Standard_D2s_v5'
 param location string = resourceGroup().location
 
 @description('Name of the virtual machine.')
-param vmName string = 'simple-vm'
+param vmName string = 'win2025-vm'
 
 @description('Security Type of the Virtual Machine.')
 @allowed([
@@ -51,13 +42,16 @@ param vmName string = 'simple-vm'
 ])
 param securityType string = 'TrustedLaunch'
 
-var storageAccountName = 'bootdiags${uniqueString(resourceGroup().id)}'
-var nicName = 'myVMNic'
+@description('Tags to apply to each resource type.')
+param tagsByResource object = {}
+
+var nicName = '${vmName}-nic'
 var addressPrefix = '10.0.0.0/16'
 var subnetName = 'Subnet'
 var subnetPrefix = '10.0.0.0/24'
-var virtualNetworkName = 'MyVNET'
-var networkSecurityGroupName = 'default-NSG'
+var virtualNetworkName = '${vmName}-vnet'
+var networkSecurityGroupName = '${vmName}-nsg'
+var publicIpName = '${vmName}-ip'
 var securityProfileJson = {
   uefiSettings: {
     secureBootEnabled: true
@@ -71,26 +65,15 @@ var extensionVersion = '1.0'
 var maaTenantName = 'GuestAttestation'
 var maaEndpoint = substring('emptyString', 0, 0)
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2025-08-01' = {
-  name: storageAccountName
-  location: location
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'Storage'
-  properties: {
-    defaultToOAuthAuthentication: true
-  }
-}
-
 resource publicIp 'Microsoft.Network/publicIPAddresses@2025-07-01' = {
   name: publicIpName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/publicIPAddresses'] ?? {}
   sku: {
-    name: publicIpSku
+    name: 'Standard'
   }
   properties: {
-    publicIPAllocationMethod: publicIPAllocationMethod
+    publicIPAllocationMethod: 'Static'
     dnsSettings: {
       domainNameLabel: dnsLabelPrefix
     }
@@ -100,10 +83,11 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2025-07-01' = {
 resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2025-07-01' = {
   name: networkSecurityGroupName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/networkSecurityGroups'] ?? {}
   properties: {
     securityRules: [
       {
-        name: 'default-allow-3389'
+        name: 'allow-rdp'
         properties: {
           priority: 1000
           access: 'Allow'
@@ -122,6 +106,7 @@ resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2025-07-0
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2025-07-01' = {
   name: virtualNetworkName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/virtualNetworks'] ?? {}
   properties: {
     addressSpace: {
       addressPrefixes: [
@@ -145,6 +130,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2025-07-01' = {
 resource nic 'Microsoft.Network/networkInterfaces@2025-07-01' = {
   name: nicName
   location: location
+  tags: tagsByResource[?'Microsoft.Network/networkInterfaces'] ?? {}
   properties: {
     ipConfigurations: [
       {
@@ -155,20 +141,18 @@ resource nic 'Microsoft.Network/networkInterfaces@2025-07-01' = {
             id: publicIp.id
           }
           subnet: {
-            id: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetworkName, subnetName)
+            id: virtualNetwork.properties.subnets[0].id
           }
         }
       }
     ]
   }
-  dependsOn: [
-    virtualNetwork
-  ]
 }
 
 resource vm 'Microsoft.Compute/virtualMachines@2025-11-01' = {
   name: vmName
   location: location
+  tags: tagsByResource[?'Microsoft.Compute/virtualMachines'] ?? {}
   properties: {
     hardwareProfile: {
       vmSize: vmSize
@@ -191,13 +175,6 @@ resource vm 'Microsoft.Compute/virtualMachines@2025-11-01' = {
           storageAccountType: 'StandardSSD_LRS'
         }
       }
-      dataDisks: [
-        {
-          diskSizeGB: 1023
-          lun: 0
-          createOption: 'Empty'
-        }
-      ]
     }
     networkProfile: {
       networkInterfaces: [
@@ -209,16 +186,15 @@ resource vm 'Microsoft.Compute/virtualMachines@2025-11-01' = {
     diagnosticsProfile: {
       bootDiagnostics: {
         enabled: true
-        storageUri: reference(storageAccount.id, '2025-08-01').primaryEndpoints.blob
       }
     }
     securityProfile: ((securityType == 'TrustedLaunch') ? securityProfileJson : null)
   }
 }
 
-resource vmName_extension 'Microsoft.Compute/virtualMachines/extensions@2025-11-01' = if ((securityType == 'TrustedLaunch') && ((securityProfileJson.uefiSettings.secureBootEnabled == true) && (securityProfileJson.uefiSettings.vTpmEnabled == true))) {
+resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2025-11-01' = if ((securityType == 'TrustedLaunch') && ((securityProfileJson.uefiSettings.secureBootEnabled == true) && (securityProfileJson.uefiSettings.vTpmEnabled == true))) {
   parent: vm
-  name: '${extensionName}'
+  name: extensionName
   location: location
   properties: {
     publisher: extensionPublisher
@@ -237,4 +213,4 @@ resource vmName_extension 'Microsoft.Compute/virtualMachines/extensions@2025-11-
   }
 }
 
-output hostname string = reference(publicIp.id, '2025-07-01').dnsSettings.fqdn
+output hostname string = publicIp.properties.dnsSettings.fqdn
