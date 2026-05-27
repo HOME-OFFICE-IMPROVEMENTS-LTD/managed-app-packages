@@ -11,7 +11,7 @@ param vmName string = 'dokku-vm'
 param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().id, vmName)}')
 
 @description('The Dokku version to install.')
-param dokkuVersion string = '0.35.15'
+param dokkuVersion string = '0.38.8'
 
 @description('Size of the virtual machine.')
 param vmSize string = 'Standard_D2s_v5'

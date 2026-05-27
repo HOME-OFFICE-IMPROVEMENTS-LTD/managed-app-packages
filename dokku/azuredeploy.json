@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "4671965451653169765"
+      "templateHash": "4908739273884136147"
     }
   },
   "parameters": {
@@ -37,7 +37,7 @@
     },
     "dokkuVersion": {
       "type": "string",
-      "defaultValue": "0.35.15",
+      "defaultValue": "0.38.8",
       "metadata": {
         "description": "The Dokku version to install."
       }

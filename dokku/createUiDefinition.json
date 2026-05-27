@@ -76,21 +76,17 @@
                         "name": "dokkuVersion",
                         "type": "Microsoft.Common.DropDown",
                         "label": "Dokku Version",
-                        "defaultValue": "0.35.15 (Stable)",
-                        "toolTip": "Select the Dokku version to install. Latest stable is recommended.",
+                        "defaultValue": "0.38.8 (Latest Stable)",
+                        "toolTip": "Select the Dokku version to install. 0.38.x is the current stable release.",
                         "constraints": {
                             "allowedValues": [
                                 {
-                                    "label": "0.35.15 (Stable, Recommended)",
+                                    "label": "0.38.8 (Latest Stable, Recommended)",
+                                    "value": "0.38.8"
+                                },
+                                {
+                                    "label": "0.35.15 (LTS)",
                                     "value": "0.35.15"
-                                },
-                                {
-                                    "label": "0.34.9",
-                                    "value": "0.34.9"
-                                },
-                                {
-                                    "label": "0.33.8",
-                                    "value": "0.33.8"
                                 }
                             ],
                             "required": true
