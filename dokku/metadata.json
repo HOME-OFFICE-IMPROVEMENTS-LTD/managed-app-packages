@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Deploy Dokku — self-hosted PaaS on Ubuntu 24.04",
+  "description": "Deploys Dokku on an Ubuntu 24.04 LTS Gen2 virtual machine with Trusted Launch (Secure Boot + vTPM), Standard public IP, and SSH key authentication. Dokku is a self-hosted Heroku alternative — push your app with Git and Dokku handles build, containerisation, and deployment. Supports any language via Heroku Buildpacks or Dockerfile.",
+  "summary": "Self-hosted Heroku (Dokku) on Ubuntu 24.04 with Trusted Launch, Standard IP, and SSH auth.",
+  "githubUsername": "hoiltd",
+  "dateUpdated": "2026-05-27",
+  "tags": {
+    "os": "Linux, Ubuntu",
+    "resource": "VM",
+    "level": "Intermediate",
+    "scenario": "Developer Tools, PaaS, Git Deploy"
+  }
+}

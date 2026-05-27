@@ -1,0 +1,201 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+    "handler": "Microsoft.Azure.CreateUIDef",
+    "version": "0.1.2-preview",
+    "parameters": {
+        "resourceTypes": [
+            "Microsoft.Compute/virtualMachines"
+        ],
+        "basics": [
+            {
+                "name": "introInfo",
+                "type": "Microsoft.Common.InfoBox",
+                "visible": true,
+                "options": {
+                    "icon": "Info",
+                    "text": "Deploy Dokku — your own private Heroku on Azure. Push your app code via Git and Dokku handles build, containerisation, and deployment automatically. Supports any language with a Buildpack or Dockerfile. Ideal for developers and small teams who want PaaS without the SaaS price tag."
+                }
+            },
+            {
+                "name": "vmName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Virtual Machine Name",
+                "toolTip": "Name for the Dokku host VM. Must be 3–15 alphanumeric characters or hyphens.",
+                "placeholder": "dokku-vm",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[a-zA-Z0-9-]{3,15}$",
+                    "validationMessage": "Must be 3–15 characters: letters, numbers, and hyphens only."
+                },
+                "visible": true
+            },
+            {
+                "name": "adminUsername",
+                "type": "Microsoft.Compute.UserNameTextBox",
+                "label": "Admin Username",
+                "toolTip": "Administrator username for the virtual machine.",
+                "osPlatform": "Linux",
+                "constraints": {
+                    "required": true
+                },
+                "visible": true
+            },
+            {
+                "name": "vmCredentials",
+                "type": "Microsoft.Compute.CredentialsCombo",
+                "label": {
+                    "authenticationType": "Authentication Type",
+                    "password": "Password",
+                    "confirmPassword": "Confirm Password",
+                    "sshPublicKey": "SSH Public Key"
+                },
+                "toolTip": {
+                    "authenticationType": "SSH key is required. Dokku uses this key for both VM access and git push deployments.",
+                    "password": "Password must be at least 12 characters.",
+                    "sshPublicKey": "Paste your SSH public key (starts with ssh-rsa or ssh-ed25519). This key is used for both VM login and 'git push' deployments to Dokku."
+                },
+                "constraints": {
+                    "required": true,
+                    "customPasswordRegex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{12,128}$",
+                    "customValidationMessage": "Password must be 12–128 characters and include uppercase, lowercase, digit, and special character."
+                },
+                "options": {
+                    "hideConfirmation": false,
+                    "hidePassword": true
+                },
+                "osPlatform": "Linux",
+                "visible": true
+            }
+        ],
+        "steps": [
+            {
+                "name": "vmSettings",
+                "label": "VM Settings",
+                "elements": [
+                    {
+                        "name": "dokkuVersion",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Dokku Version",
+                        "defaultValue": "0.35.15 (Stable)",
+                        "toolTip": "Select the Dokku version to install. Latest stable is recommended.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "0.35.15 (Stable, Recommended)",
+                                    "value": "0.35.15"
+                                },
+                                {
+                                    "label": "0.34.9",
+                                    "value": "0.34.9"
+                                },
+                                {
+                                    "label": "0.33.8",
+                                    "value": "0.33.8"
+                                }
+                            ],
+                            "required": true
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vmSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Virtual Machine Size",
+                        "toolTip": "Select the size of the virtual machine. At least 2 vCPUs and 4GB RAM recommended for running multiple apps.",
+                        "recommendedSizes": [
+                            "Standard_D2s_v5",
+                            "Standard_D2s_v3",
+                            "Standard_B2ms"
+                        ],
+                        "constraints": {
+                            "allowedSizes": [
+                                "Standard_B2ms",
+                                "Standard_B4ms",
+                                "Standard_D2s_v3",
+                                "Standard_D4s_v3",
+                                "Standard_D2s_v5",
+                                "Standard_D4s_v5"
+                            ],
+                            "required": true
+                        },
+                        "osPlatform": "Linux",
+                        "imageReference": {
+                            "publisher": "Canonical",
+                            "offer": "ubuntu-24_04-lts",
+                            "sku": "server"
+                        },
+                        "count": 1,
+                        "visible": true
+                    },
+                    {
+                        "name": "securityType",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Security Type",
+                        "defaultValue": "TrustedLaunch",
+                        "toolTip": "Trusted Launch enables Secure Boot and vTPM for enhanced VM security. Recommended for all new deployments.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Trusted Launch (Recommended)",
+                                    "value": "TrustedLaunch"
+                                },
+                                {
+                                    "label": "Standard",
+                                    "value": "Standard"
+                                }
+                            ],
+                            "required": true
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "securityInfoTrusted",
+                        "type": "Microsoft.Common.InfoBox",
+                        "visible": "[equals(steps('vmSettings').securityType, 'TrustedLaunch')]",
+                        "options": {
+                            "icon": "Info",
+                            "text": "Trusted Launch protects your VM with Secure Boot and vTPM. Recommended for all production workloads."
+                        }
+                    },
+                    {
+                        "name": "securityInfoStandard",
+                        "type": "Microsoft.Common.InfoBox",
+                        "visible": "[equals(steps('vmSettings').securityType, 'Standard')]",
+                        "options": {
+                            "icon": "Warning",
+                            "text": "Standard security does not include Secure Boot or vTPM. Only select this if your workload is not compatible with Trusted Launch."
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "tags",
+                "label": "Tags",
+                "elements": [
+                    {
+                        "name": "tagsByResource",
+                        "type": "Microsoft.Common.TagsByResource",
+                        "toolTip": "Apply tags to each resource type individually.",
+                        "resources": [
+                            "Microsoft.Compute/virtualMachines",
+                            "Microsoft.Network/virtualNetworks",
+                            "Microsoft.Network/networkInterfaces",
+                            "Microsoft.Network/networkSecurityGroups",
+                            "Microsoft.Network/publicIPAddresses"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "outputs": {
+            "location": "[location()]",
+            "vmName": "[basics('vmName')]",
+            "adminUsername": "[basics('adminUsername')]",
+            "sshPublicKey": "[basics('vmCredentials').sshPublicKey]",
+            "dokkuVersion": "[steps('vmSettings').dokkuVersion]",
+            "vmSize": "[steps('vmSettings').vmSize]",
+            "securityType": "[steps('vmSettings').securityType]",
+            "tagsByResource": "[steps('tags').tagsByResource]"
+        }
+    }
+}
