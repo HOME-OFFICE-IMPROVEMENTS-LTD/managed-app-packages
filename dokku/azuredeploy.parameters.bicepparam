@@ -9,3 +9,6 @@ param securityType = 'TrustedLaunch'
 // Required for local/VS Code deploy — scripts fetched from GitHub
 // Partner Center sets this automatically from the hosted zip URI
 param _artifactsLocation = 'https://raw.githubusercontent.com/HOME-OFFICE-IMPROVEMENTS-LTD/managed-app-packages/main/dokku/'
+param dnsLabelPrefix = 'dokku-test-vm'
+param _artifactsLocationSasToken = ''
+param location = 'uksouth'

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "10625543288488754641"
+      "templateHash": "4671965451653169765"
     }
   },
   "parameters": {
@@ -329,7 +329,7 @@
           "fileUris": [
             "[uri(parameters('_artifactsLocation'), format('scripts/deploy_dokku.sh{0}', parameters('_artifactsLocationSasToken')))]"
           ],
-          "commandToExecute": "[format('bash deploy_dokku.sh {0}', parameters('dokkuVersion'))]"
+          "commandToExecute": "[format('bash deploy_dokku.sh {0} \"{1}\"', parameters('dokkuVersion'), parameters('sshPublicKey'))]"
         }
       },
       "dependsOn": [
