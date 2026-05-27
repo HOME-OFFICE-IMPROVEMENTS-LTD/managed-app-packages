@@ -255,9 +255,9 @@ resource installDokku 'Microsoft.Compute/virtualMachines/extensions@2025-11-01' 
     autoUpgradeMinorVersion: true
     settings: {
       fileUris: [
-        uri(_artifactsLocation, 'scripts/deploy_dokku.sh${_artifactsLocationSasToken}')
+        uri(_artifactsLocation, 'scripts/deploy-dokku.sh${_artifactsLocationSasToken}')
       ]
-      commandToExecute: 'bash deploy_dokku.sh ${dokkuVersion} "${sshPublicKey}"'
+      commandToExecute: 'bash deploy-dokku.sh ${dokkuVersion} "${sshPublicKey}"'
     }
   }
 }
