@@ -14,7 +14,7 @@ param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().
 param dokkuVersion string = '0.38.8'
 
 @description('Size of the virtual machine.')
-param vmSize string = 'Standard_D2s_v5'
+param vmSize string = 'Standard_B2ms'
 
 @description('Location for all resources.')
 param location string = resourceGroup().location

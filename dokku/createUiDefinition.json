@@ -99,9 +99,9 @@
                         "label": "Virtual Machine Size",
                         "toolTip": "Select the size of the virtual machine. At least 2 vCPUs and 4GB RAM recommended for running multiple apps.",
                         "recommendedSizes": [
-                            "Standard_D2s_v5",
+                            "Standard_B2ms",
                             "Standard_D2s_v3",
-                            "Standard_B2ms"
+                            "Standard_D2s_v5"
                         ],
                         "constraints": {
                             "allowedSizes": [
