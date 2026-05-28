@@ -25,7 +25,7 @@ param managingTenantId string = '8d8fc190-bad7-469a-b9ba-fee5c60b25f4'
 
 var hoiltdAuthorizations = [
   {
-    // hoi-sg-lighthouse-administrators — full management access
+    // hoi-sg-lighthouse-administrators — full management access (all Mohammed accounts)
     principalId: '51f640b2-1d38-4952-b1ca-1935e53622b7'
     principalIdDisplayName: 'HOILTD Lighthouse Administrators'
     roleDefinitionId: 'b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor
@@ -34,12 +34,6 @@ var hoiltdAuthorizations = [
     // HOI-AZ-PLATFORM-OWNERS — platform engineering access
     principalId: '5b82103b-87da-4422-9872-7d56a51c38f8'
     principalIdDisplayName: 'HOILTD Platform Engineers'
-    roleDefinitionId: 'acdd72a7-3385-48ef-bd42-f606fba81ae7' // Reader
-  }
-  {
-    // HOI Lighthouse Account Manager — read-only account management
-    principalId: '39e9817f-bbe6-4f1c-bd37-fe9c641e386f'
-    principalIdDisplayName: 'HOILTD Account Managers'
     roleDefinitionId: 'acdd72a7-3385-48ef-bd42-f606fba81ae7' // Reader
   }
   {

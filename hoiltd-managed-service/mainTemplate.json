@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "8130992734407849454"
+      "templateHash": "15565759298301967082"
     }
   },
   "parameters": {
@@ -41,11 +41,6 @@
       {
         "principalId": "5b82103b-87da-4422-9872-7d56a51c38f8",
         "principalIdDisplayName": "HOILTD Platform Engineers",
-        "roleDefinitionId": "acdd72a7-3385-48ef-bd42-f606fba81ae7"
-      },
-      {
-        "principalId": "39e9817f-bbe6-4f1c-bd37-fe9c641e386f",
-        "principalIdDisplayName": "HOILTD Account Managers",
         "roleDefinitionId": "acdd72a7-3385-48ef-bd42-f606fba81ae7"
       },
       {
