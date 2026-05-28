@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "15565759298301967082"
+      "templateHash": "17226750467171755319"
     }
   },
   "parameters": {
@@ -46,7 +46,11 @@
       {
         "principalId": "00fb43a1-9ddf-4cc4-810f-18aca6b13e89",
         "principalIdDisplayName": "HOILTD Service Administrators (PIM)",
-        "roleDefinitionId": "18d7d88d-d35e-4fb5-a5c3-7773c20a72d9"
+        "roleDefinitionId": "18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
+        "delegatedRoleDefinitionIds": [
+          "b24988ac-6180-42a0-ab88-20f7382dd24c",
+          "acdd72a7-3385-48ef-bd42-f606fba81ae7"
+        ]
       }
     ]
   },

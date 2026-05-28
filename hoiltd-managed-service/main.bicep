@@ -38,9 +38,15 @@ var hoiltdAuthorizations = [
   }
   {
     // HOI-PIM-ServiceAdmins — elevated access via PIM (Just-In-Time)
+    // User Access Administrator requires delegatedRoleDefinitionIds — specifies
+    // which roles this group is allowed to assign to others (scoped to Contributor + Reader only)
     principalId: '00fb43a1-9ddf-4cc4-810f-18aca6b13e89'
     principalIdDisplayName: 'HOILTD Service Administrators (PIM)'
     roleDefinitionId: '18d7d88d-d35e-4fb5-a5c3-7773c20a72d9' // User Access Administrator
+    delegatedRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor
+      'acdd72a7-3385-48ef-bd42-f606fba81ae7' // Reader
+    ]
   }
 ]
 
