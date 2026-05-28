@@ -1,0 +1,13 @@
+{
+  "itemDisplayName": "HOILTD Managed Azure Services — Lighthouse Delegation",
+  "description": "Onboards your Azure subscription to HOILTD managed services via Azure Lighthouse. Grants HOILTD engineers delegated access to manage your subscription on your behalf. All access is auditable and revocable at any time.",
+  "summary": "Delegate your Azure subscription to HOILTD for fully managed Azure services.",
+  "type": "ManagedService",
+  "dateUpdated": "2026-05-28",
+  "publisher": "HOME-OFFICE-IMPROVEMENTS-LTD",
+  "tags": {
+    "offering": "Managed Service",
+    "scenario": "Azure Lighthouse, MSP, Managed Services",
+    "level": "Production"
+  }
+}
