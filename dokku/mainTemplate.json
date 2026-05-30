@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.43.8.12551",
-      "templateHash": "17009303953708885418"
+      "templateHash": "2095790837808231538"
     }
   },
   "parameters": {
@@ -69,9 +69,9 @@
     },
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/HOME-OFFICE-IMPROVEMENTS-LTD/managed-app-packages/main/dokku/",
+      "defaultValue": "[deployment().properties.templateLink.uri]",
       "metadata": {
-        "description": "The base URI where artifacts required by this template are located. Defaults to GitHub raw URL for local/VS Code testing. Partner Center managed app deployments automatically override this with the hosted zip URI."
+        "description": "The base URI where artifacts required by this template are located. When deployed via Partner Center, this is automatically set to the hosted zip URI. For local/VS Code testing, override this in azuredeploy.parameters.json with the GitHub raw URL."
       }
     },
     "_artifactsLocationSasToken": {

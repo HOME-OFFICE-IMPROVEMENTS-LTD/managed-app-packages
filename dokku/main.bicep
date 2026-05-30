@@ -26,8 +26,8 @@ param location string = resourceGroup().location
 ])
 param securityType string = 'TrustedLaunch'
 
-@description('The base URI where artifacts required by this template are located. Defaults to GitHub raw URL for local/VS Code testing. Partner Center managed app deployments automatically override this with the hosted zip URI.')
-param _artifactsLocation string = 'https://raw.githubusercontent.com/HOME-OFFICE-IMPROVEMENTS-LTD/managed-app-packages/main/dokku/'
+@description('The base URI where artifacts required by this template are located. When deployed via Partner Center, this is automatically set to the hosted zip URI. For local/VS Code testing, override this in azuredeploy.parameters.json with the GitHub raw URL.')
+param _artifactsLocation string = deployment().properties.templateLink.uri
 
 @description('SAS token for _artifactsLocation. Auto-generated when deployed via Partner Center.')
 @secure()
